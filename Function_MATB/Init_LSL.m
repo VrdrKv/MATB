@@ -25,7 +25,7 @@ outlet.push_sample({0,'LSL Init',''});
 
 %%---------- EYE TRACKING
 disp('Creating EyeTracking stream info...');
-info = lsl_streaminfo(lib,'GazePoint','EyeTrack',4,60,'cf_float32','sdfwerr32432');
+info = lsl_streaminfo(lib,'GazePoint','EyeTrack',24,60,'cf_float32','sdfwerr32432');
 outlet2 = lsl_outlet(info);
 MATB_DATA.EyeTrack.outlet=outlet2;
 
