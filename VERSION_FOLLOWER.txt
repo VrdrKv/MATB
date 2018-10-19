@@ -1,0 +1,12 @@
+15/02/18 Creation du Script
+
+02/03/18 Copie de Linux vers PC. Tout fonctionne, besoin d'ajouter un Tutoriel interactif
+05/03/18 Ajout des << Jaune sur le SYSMON + le catch du Joystick
+14/03/18 Nouvelle difficulté, réparation des COMM, flux différents selon difficulté
+15/03/18 Nouveau Générateur df'evenements etc.
+
+13/05/18 Multiple clavier avec KbQueueCheck revoir dans l'Updtae Keyboard et l'INIT MATB
+%% A revoir 1 fenetre pour feedback
+%% Chargement des sons (affichage du loading)
+%% Chargement des sons à l'avance ?
+%% MEssage HIT ENTER a chaque fois
