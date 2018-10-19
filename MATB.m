@@ -21,7 +21,7 @@ MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 [MATB_DATA]=Init_LOG(MATB_DATA);
 [MATB_DATA]=Init_LSL(MATB_DATA);
 [MATB_DATA]=Init_MATB(MATB_DATA);
-[MATB_DATA]=Init_EYE_TRACK(MATB_DATA);
+% [MATB_DATA]=Init_EYE_TRACK(MATB_DATA);
 
 
 % MATB_DATA.ScenarioType=[ % Interation 0/1  WL_PF 0/1 WL_PM 0/1
@@ -54,18 +54,12 @@ gen_EVENT
 % EventManuel
 pop_waiter('Hello, Welcome in the MATB world',1);
 
-%% BOUCLE
+% TRAINING
 ListenChar(-1)
-% pop_waiter('Let s try all tasks',1);
+pop_waiter('Let s try all tasks',1);
 
-% Training
-% pop_waiter('Goooood',1)
-
-% faire une boucle pour refaire ou pas -> Non dans 
-pop_waiter('Let s calibrate Player 1',1);
-[MATB_DATA]=Calibrate(MATB_DATA,1);
-pop_waiter('Let s calibrate Player 2',1);
-[MATB_DATA]=Calibrate(MATB_DATA,2);
+Training
+pop_waiter('Goooood',1)
 %% Ca part
 MATB_DATA.ScenarioType
 [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1),MATB_DATA.ScenarioNumber);

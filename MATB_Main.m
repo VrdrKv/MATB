@@ -39,12 +39,19 @@ MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber}=[];
 MATB_DATA.KeyboardAction{MATB_DATA.ScenarioNumber}=[];
 
 deviceIndex=[];
-KbQueueCreate(deviceIndex);    
+KbQueueCreate(deviceIndex);
 KbQueueStart(deviceIndex);
+
+pop_waiter('Let s calibrate Player 1',1);
+[MATB_DATA]=Calibrate(MATB_DATA,1);
+pop_waiter('Let s calibrate Player 2',1);
+[MATB_DATA]=Calibrate(MATB_DATA,2);
+
+LaunchEyeTrack(MATB_DATA)
 
 while true
     t=GetSecs;
-    set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
+    %     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
     
     % SET EVENTS
     if any(EVENT(:,1)==round(t-Start,1)) &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event   et qu'il attend 200ms
@@ -54,10 +61,10 @@ while true
     end
     
     % UPDATE ALL TASKS
-    if t-MATB_DATA.LastUpdate.KB >= 0.0
-        [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
-        [MATB_DATA]=Send_EyeTRACK(MATB_DATA);
-    end
+    %     if t-MATB_DATA.LastUpdate.KB >= 0.0
+    [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
+    [MATB_DATA]=Send_EyeTRACK(MATB_DATA);
+    %     end
     
     if t-MATB_DATA.LastUpdate.TRACK >= 0.02
         [MATB_DATA]=Update_TRACK(MATB_DATA);
@@ -89,4 +96,6 @@ while true
     %     pause(0.0001)
     drawnow
 end
+
+CloseEyeTrack(MATB_DATA)
 KbQueueStop

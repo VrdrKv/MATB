@@ -8,7 +8,13 @@ global MATB_DATA
 % Seconds  F1    F2    F3    F4    F5    F6     1     2     3    4     5     6     7      8   NAV1  NAV2   COM1  COM2
 
 %   10     0 0 0 0 0 1 
-
+pop=dialog('position',[500   450   850   250]);
+txt = uicontrol('Parent',pop,...
+    'Style','text',...
+    'Position', [100 -100 600 250],...
+    'String','Generating Scenarios',...
+    'Fontsize',18);
+drawnow;
 
 for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     EVENT{N_Scenar}=[];
@@ -141,3 +147,4 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     
     MATB_DATA.EVENT{N_Scenar}=EVENT{N_Scenar};
 end
+close(pop)
