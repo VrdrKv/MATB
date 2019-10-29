@@ -1,6 +1,6 @@
 # MATB
 
-Modifed-version of the NASA MATBII
+Modifed-version of the NASA MATBII  
 Multi Attribute Task Battery (Replica from the NASA version - https://matb.larc.nasa.gov/)  
 
 Author: Kevin Verdiere, ISAE-SUPAERO, 2018,  
