@@ -35,8 +35,6 @@ MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2
 %-------- Scenario Type ---------------------------------------------------
 % Exemple : 2 scenario 10sec each
 MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high workload
-    0
-    0
     0];
 
 % Randomisation=[ 5  1  2  6  8  7  4  3 ];
@@ -59,7 +57,7 @@ MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high wo
 %------------------------------------------------------------ --------------
 
 %-------- Scenario Duration (sec) -----------------------------------------
-MATB_DATA.ScenarioDuration=[120 120 300];
+MATB_DATA.ScenarioDuration=[30 120 300];
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*5,ones(1,8)*5);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*150,ones(1,8)*300);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*10,ones(1,8)*300);
@@ -80,10 +78,10 @@ pop_waiter(["Bonjour,",...
     "(Appuyez sur 'ENTREE' pour commencer)"],1); 
 
 %-------- TUTORIAL  -------------------------------------------------------
-pop_waiter(["Afin de vous familiariser avec la tâche, merci de réaliser ce petit tutoriel", ... 
-     "(Appuyez sur 'ENTREE' pour continuer)"],1);
-Tutorial
-pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continuer',1)
+% pop_waiter(["Afin de vous familiariser avec la tâche, merci de réaliser ce petit tutoriel", ... 
+%      "(Appuyez sur 'ENTREE' pour continuer)"],1);
+% Tutorial
+% pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continuer',1)
 %--------------------------------------------------------------------------
 
 %-------- TRAINING---------------------------------------------------------
@@ -95,7 +93,13 @@ pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continu
 %--------------------------------------------------------------------------
 
 
-
+% f=figure('CloseRequestFcn',@closehide);
+% 
+% %   set(f,'CloseRequestFcn',); 
+% 
+% function closehide(src,callbackdata)
+% set(src,'Visible','off');
+% end
 %% ------------------------ MAIN TASK--------------------------------------
 
 pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...

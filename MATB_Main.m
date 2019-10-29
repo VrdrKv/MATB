@@ -87,8 +87,8 @@ while true % Main GAME LOOP
     [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
     [MATB_DATA]=Send_EyeTRACK(MATB_DATA);
 
-	if sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
-        % 		[MATB_DATA]=Update_JOYSTICKBUT(MATB_DATA, joy);
+    
+	if ~isempty(MATB_DATA.TRACK.JoystickID) && sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
         Update_JOYSTICKBUT(MATB_DATA.TRACK.JoystickID)
 	end
     %     end
