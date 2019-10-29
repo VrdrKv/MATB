@@ -161,7 +161,7 @@ pop_nowait('Il est important de maintenir le niveau des reservoirs A et B entre 
 pop_nowait('Notez bien que lorsqu`une pompe est grise, celle-ci est désactivée. Vert signifie qu`elle est activée et rouge défectueuse.',yesKeys)
 pop_nowait('Quand une pompe est défectueuse, vous ne pourrez pas la réparer, vous devrez simplement attendre que celle-ci redevienne fonctionnelle',yesKeys)
 fClav2=figure('menubar','non','numbertitle','off','position',[30 87 746 316]);
-imagesc(imread('Fucntion_MATB\clavier2.png'))
+imagesc(imread('Function_MATB\clavier2.png'))
 set(gca,'position',[ 0 0  1 1]); axis off
 pop_nowait('Pour activer une pompe, pressez le nombre correspondant à la pompe sur la deuxième ligne du clavier, la pompe en question deviendra alors verte',yesKeys)
 close(fClav2);
