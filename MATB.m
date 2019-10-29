@@ -10,7 +10,6 @@
 % You migh need :
 % --> labstreaminglayer toolbox : to stream all those data :)
 
-
 %% -----------------------TUTORIAL & TRAINING------------------------------
 
 close all; clc; clear; fclose('all');
