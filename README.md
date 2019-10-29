@@ -3,7 +3,7 @@
 Matlab modifed version of the NASA MATBII  
 Multi Attribute Task Battery (Replica from the NASA version - https://matb.larc.nasa.gov/)  
 
-Author: Kevin Verdiere, ISAE-SUPAERO, 2018,  
+Author: Kevin Verdière, ISAE-SUPAERO, 2018,  
 kevin@verdiere.fr / kevin.verdiere@isae-supaero.fr   
 
 if you are doing research and publishing, pleace cite :  
