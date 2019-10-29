@@ -12,7 +12,7 @@ for i=1:2
     pause(0.5)
     while  (get(client_socket{i}, 'BytesAvailable') > 0)
         results = fscanf(client_socket{i});
-        disp(results)
+%                 disp(results)
         pause(.01);
     end
 end

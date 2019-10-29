@@ -27,7 +27,7 @@ FRP=MATB_DATA.RESMAN.FluxPompe{MATB_DATA.ScenarioNumber};
 % Calcul du Nouveau Niveaux
 MATB_DATA.RESMAN.NiveauxPompe(1)=round(min([max([MATB_DATA.RESMAN.NiveauxPompe(1) - FRP(9) + StatePMP(1)*FRP(1) + StatePMP(2)*FRP(2) + StatePMP(8)*FRP(8) - StatePMP(7)*FRP(7) 0]) 4400 ]));
 MATB_DATA.RESMAN.NiveauxPompe(2)=round(min([max([MATB_DATA.RESMAN.NiveauxPompe(2) - FRP(10) + StatePMP(3)*FRP(3) + StatePMP(4)*FRP(4) + StatePMP(7)*FRP(7) - StatePMP(8)*FRP(8) 0]) 4400 ]));
-MATB_DATA.RESMAN.NiveauxPompe(3)=round(min([max([MATB_DATA.RESMAN.NiveauxPompe(3)+ StatePMP(5)*FRP(5) - StatePMP(1)*FRP(1) 0]) 2000]));
+MATB_DATA.RESMAN.NiveauxPompe(3)=round(min([max([MATB_DATA.RESMAN.NiveauxPompe(3) + StatePMP(5)*FRP(5) - StatePMP(1)*FRP(1) 0]) 2000]));
 MATB_DATA.RESMAN.NiveauxPompe(4)=round(min([max([MATB_DATA.RESMAN.NiveauxPompe(4) + StatePMP(6)*FRP(6) - StatePMP(3)*FRP(3) 0]) 2000]));
 
 set(MATB_DATA.RESMAN.handleTextNiveau(1),'String',num2str(MATB_DATA.RESMAN.NiveauxPompe(1)))
@@ -43,7 +43,8 @@ else
     set(MATB_DATA.RESMAN.handleTextNiveau(1),'Color',ColorBar)
     MATB_DATA.RESMAN.HorsZone(1)=0;
 end
-if MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000
+%if (MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000) && MATB_DATA.Param.TrackIfLevel 
+if MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000 
     set(MATB_DATA.RESMAN.handleTextNiveau(2),'Color',[1 0.6 0])
     MATB_DATA.RESMAN.HorsZone(2)=1;
 else
@@ -54,8 +55,8 @@ end
 % Mise à jour du niveau graphiquement
 Lev(1)=MATB_DATA.RESMAN.NiveauxPompe(1)*(3.9/2500)+12.1; set(MATB_DATA.RESMAN.handleNiveau(1),'YData',[12.1 Lev(1) Lev(1) 12.1])
 Lev(2)=MATB_DATA.RESMAN.NiveauxPompe(2)*(3.9/2500)+12.1; set(MATB_DATA.RESMAN.handleNiveau(2),'YData',[12.1 Lev(2) Lev(2) 12.1])
-Lev(3)=MATB_DATA.RESMAN.NiveauxPompe(3)*(2.9/1000)+1.1; set(MATB_DATA.RESMAN.handleNiveau(3),'YData',[1.1 Lev(3) Lev(3) 1.1])
-Lev(4)=MATB_DATA.RESMAN.NiveauxPompe(4)*(2.9/1000)+1.1; set(MATB_DATA.RESMAN.handleNiveau(5),'YData',[1.1 Lev(4) Lev(4) 1.1])
+Lev(3)=MATB_DATA.RESMAN.NiveauxPompe(3)*(2.9/1000)+1.1;  set(MATB_DATA.RESMAN.handleNiveau(3),'YData',[1.1 Lev(3) Lev(3) 1.1])
+Lev(4)=MATB_DATA.RESMAN.NiveauxPompe(4)*(2.9/1000)+1.1;  set(MATB_DATA.RESMAN.handleNiveau(5),'YData',[1.1 Lev(4) Lev(4) 1.1])
 
 % Extinction des pompes si reservoirs vide
 if MATB_DATA.RESMAN.NiveauxPompe(1) == 0
@@ -70,6 +71,7 @@ end
 if MATB_DATA.RESMAN.NiveauxPompe(4) == 0
     set(MATB_DATA.RESMAN.handlePompe(3),'backgroundcolor',[.94 .94 .94]); StatePMP(3)=0;
 end
+
 % Extinction des pompes si reservoirs pleins
 if MATB_DATA.RESMAN.NiveauxPompe(1) == 4400
     set(MATB_DATA.RESMAN.handlePompe(1:2),'backgroundcolor',[.94 .94 .94]); StatePMP(1:2)=0;

@@ -18,21 +18,24 @@ drawnow;
 
 for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     EVENT{N_Scenar}=[];
-    disp(['Generating Event for Scenario ' num2str(N_Scenar) ' / ' num2str(size(MATB_DATA.ScenarioType,1))])
-    %--------------------------------------------%
-    %--------------- EVENT PF -------------------%
-    %--------------------------------------------%
-    N_Ev=30;
+    Tot_Ev = [12 4 2 4; 12 4 2 4; 24 10 5 5]; %Definition du nombre d evenements/pannes pour chaque scenario (lignes) et chaque tache (colones: SYSMON (!!! Multiple de 3!!!), COM-Ev, COM-Target, RESMAN) -- AL
+    disp(['Initialisation des scénarios' num2str(N_Scenar) ' / ' num2str(size(MATB_DATA.ScenarioType,1))])
+    t_Max = MATB_DATA.ScenarioDuration(N_Scenar);
+
+    %--------------- EVENT SYSMON -------------------%
+
+    N_Ev=Tot_Ev(N_Scenar,1); % Nombre d'alarmes (30 dans le script de Kévin)
     Ev=zeros(N_Ev,19);
+        
+%     t=round(linspace(5,280,N_Ev))+randi([-15 15],1,N_Ev); % De 5 à 280 lineairement espacé + un jitter de 15sec max
+    t=round(linspace(10,(t_Max-(t_Max/15)),N_Ev))+randi([-10 5],1,N_Ev); % Modifie pour permettre des scenarii de differentes durees -- AL
     
-    t=round(linspace(5,280,N_Ev))+randi([-15 15],1,N_Ev);
-    
-    t(t>280)=280; t(t<5)=5;
+    t(t>(t_Max-(t_Max/15)))=(t_Max-(t_Max/15)); t(t<5)=5; % si trop haut ou trop bas
     t=sort(t);
     % Repartition entre les bars et les alarmes lumineuses
-    N_F1F4=N_Ev*2/3; N_F5F6=N_Ev*1/3;
+    N_F1F4=N_Ev*2/3; N_F5F6=N_Ev*1/3;  % 2/3 d'alarme de type barres et 1/3 de boutons
     
-    % Temps dans les 5mn
+    % Attribution aléatoire des alarmes aux barres ou aux boutons 
     pos=cat(1,randi([1 4],N_F1F4,1),randi([5 6],N_F5F6,1)); pos=pos(randperm(N_Ev));
     
     % Valeur +1 ou -1
@@ -48,71 +51,83 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     end
     EVENT{N_Scenar}=cat(1,EVENT{N_Scenar},Ev);
 
-    if MATB_DATA.ScenarioType(N_Scenar,2)==0  % Track Facile
+    
+        %--------------- EVENT TRACK -------------------%
+    if MATB_DATA.ScenarioType(N_Scenar,1)==0  %  Facile
         MATB_DATA.TRACK.Difficulty{N_Scenar}=0;
-    else % Track Difficile
+    else %  Difficile
         MATB_DATA.TRACK.Difficulty{N_Scenar}=1;
     end
     
-    %--------------------------------------------%
-    %--------------- EVENT PM -------------------%
-    %--------------------------------------------%
     
-    % COMM
-    N_Ev=16;
+        %--------------- EVENT COMM -------------------%
+    
+    % COMM % Attention : Pas de comm à Zero
+    N_Ev=Tot_Ev(N_Scenar,2); % Nombre d'evenement (16 dans le script de Kévin)
+    Target=Tot_Ev(N_Scenar,3); % Nombre de targets (10 dans le script de Kévin)
     while true
         Ev=zeros(N_Ev,19);
-        t=round(linspace(10,270,N_Ev))+randi([-10 5],1,N_Ev);
+%         t=round(linspace(10,270,N_Ev))+randi([-10 5],1,N_Ev);  % De 5 à 270 lineairement espacé + un jitter de -10 à 5 sec 
+        t=round(linspace(10,(t_Max-20),N_Ev))+randi([-10 5],1,N_Ev); % Modifie pour permettre des scenarii de differentes durees -- AL
         
-        TypeCOMM=randi([1 4],N_Ev,1);
+        TypeCOMM=randi([1 4],N_Ev,1); % NAV 1 2 ou COMM 1 2 (4 possibilite)
         TypeCOMM=TypeCOMM(randperm(length(TypeCOMM)));
         
-        value=cat(2,ones(1,10),-ones(1,6)); value=value(randperm(length(value)));
+        value=cat(2,ones(1,Target),-ones(1,N_Ev-Target)); value=value(randperm(length(value)));
         
         Ev(:,1)=t;
         for i=1:N_Ev
             Ev(i,TypeCOMM(i)+15)=value(i);
         end
         
-        if ~any(diff(Ev(:,1))<15)
+        if ~any(diff(Ev(:,1))<15) || ~any(Ev(:,1) <= 1)
             break
         end
     end
     EVENT{N_Scenar}=cat(1,EVENT{N_Scenar},Ev);
     
-    if MATB_DATA.ScenarioType(N_Scenar,3)==0  % PM Facile
-        % RESMAN
-        MATB_DATA.RESMAN.FluxPompe{N_Scenar}=[70 60 70 60 60 60 40 40 80 80]/3; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B
+    MATB_DATA.COMM.NbrTarget = Target; % ligne rajoutee pour recuperer le nombre de target et l utiliser dans la fonction PerfComm
+    
+        %--------------- EVENT RESMAN -------------------%
+    if MATB_DATA.ScenarioType(N_Scenar,1)==0  % Facile
         
-        Ev=zeros(8*2,19);
-        t_start=(30:30:240)+randi([-20 20],1,8);
-        t_end=t_start+randi([-5 5],1,8)+30;
+        N_Panne=Tot_Ev(N_Scenar,4); % (8 dans le script de Kévin)
+        MATB_DATA.RESMAN.FluxPompe{N_Scenar}=[70 60 70 60 60 60 40 40 80 80]/3; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B Attention les deux dernières valeurs correspondent aux deux reservoirs (attention les valeurs doivent etre sup ou inf autres)
+        
+        Ev=zeros(N_Panne*2,19);
+%         t_start=(linspace(30,240,N_Panne))+randi([-20 20],1,N_Panne); % Depart des pannes
+        t_start=(linspace(30,(t_Max-(t_Max/5)),N_Panne))+randi([-20 20],1,N_Panne); % Depart des pannes, Modifie pour permettre des scenarii de differentes durees -- AL
+        
+        t_end=t_start+randi([-5 5],1,N_Panne)+30; % Durée de la panne 30 sec "+ ou - 5"
         Ev(:,1)=[t_start, t_end]';
         
-        pmp_num=randi(8,1,8);
-        
+        if N_Panne >= 7
+            pmp_num=randi(8,1,N_Panne); % 2 pannes consecutives peuvent arriver 
+        else
+            pmp_num=randsample(8, N_Panne)'; % Selection des pompes qui vont etre en panne en evitant 2 pannes consecutives -- AL
+        end
+            
         for i=1:8
             Ev(find(pmp_num==i),i+7)=-1;
-            Ev(find(pmp_num==i)+8,i+7)=1;
+            Ev(find(pmp_num==i)+N_Panne,i+7)=1; % Modifie (find(pmp_num==i)+8) en (find(pmp_num==i)+N_Panne) pour compatibilité avec changement du nombre de panne -- AL
         end
         [~,b]=sort(Ev(:,1));
         Ev=Ev(b,:);
         EVENT{N_Scenar}=cat(1,EVENT{N_Scenar},Ev);
         
-    else % PM Difficile
-        % RESMAN
-        %     FRP=[80 60 80 60 60 60 40 40 80 80]/6; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B
+    else % Difficile
+
         MATB_DATA.RESMAN.FluxPompe{N_Scenar}=[90 90 100 80 80 80 75 75 120 120]/2; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B
         
-        N_Ev=20;
-        Ev=zeros(N_Ev*2,19);
+        N_Panne=20;
+        Ev=zeros(N_Panne*2,19);
         
-        t_start=round(linspace(10,280,N_Ev))+randi([-10 10],1,N_Ev);
-        t_end=t_start+randi([-5 5],1,N_Ev)+20;
+        t_start=round(linspace(10,280,N_Panne))+randi([-10 10],1,N_Panne); % Depart des pannes
+        t_end=t_start+randi([-5 5],1,N_Panne)+20;  % Durée de la panne 20 sec "+ ou - 5"
         Ev(:,1)=[t_start, t_end]';
         
         while true
-            pmp_num=randi(8,1,N_Ev);
+            pmp_num=randi(8,1,N_Panne);
             if ~any(diff(pmp_num)==0)
                 break
             end
@@ -120,7 +135,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
         
         for i=1:8
             Ev(find(pmp_num==i),i+7)=-1;
-            Ev(find(pmp_num==i)+N_Ev,i+7)=1;
+            Ev(find(pmp_num==i)+N_Panne,i+7)=1;
         end
         [~,b]=sort(Ev(:,1));
         Ev=Ev(b,:);

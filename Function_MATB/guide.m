@@ -1,4 +1,10 @@
 function [pop]=guide(scenarioType,ScenarioNumber)
+% A function to display a message next to the MATB to remember particpants
+% to cooperate or not
+%
+% scenarioType refer to the 3 conditions
+% ScenarioNumber to the actual scenario number (knowing that there is 4
+% training)
 
 NumScenar=max(ScenarioNumber-4,0);
 

@@ -1,9 +1,10 @@
 % Init LOG
 function [MATB_DATA]=Init_LOG(MATB_DATA)
 global fileID 
-
 dt=char(datetime); dt([3 7 12 15 18])='_';
 fileID=fopen(['LOG/log_' dt '.txt'],'w');
+
+diary(['LOG/diary_' dt '.txt'])
 
 fprintf(fileID,['# ', char(datetime) '\n',...
 '#\n',...

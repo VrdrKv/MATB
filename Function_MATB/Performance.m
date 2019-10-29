@@ -1,9 +1,9 @@
 % Performance Calculation
-function Performance
+function [FigPerf]=Performance
 global MATB_DATA
 % close all
 % MATB_DATA.ScenarioNumber=7;
-PSfig=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off','name','Performance','windowstyle','Modal');
+FigPerf=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off','name','Performance','windowstyle','Modal');
 %% SYSMON
 if ~isempty(MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber})
     PS=MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber}(:,2);
@@ -82,8 +82,9 @@ end
 subplot('Position',Posi(4,:))
 PerfComm
 %% Pour PAUSE CLAVIER
-pause(1)
 drawnow
+
+pause(1)
 yesKeys = KbName('Return');
 
 while true
@@ -93,7 +94,8 @@ while true
     end
 end
 
-close(PSfig)
+close(FigPerf)
+
 % close(PRfig)
 % close(PTfig)
 % close(PCfig)

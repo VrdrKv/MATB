@@ -61,10 +61,9 @@ ID = 1;
 try
     joy=vrjoystick(ID);
 catch
-    warning('Problem Loading Joystick');
+    warning('Problem Loading Joystick, be sure 1) its connected and ... 2) that you have the Simulink 3D Animation Toolbox');
     joy=[];
 end
-
 
 MATB_DATA.TRACK.JoystickID=joy;
 MATB_DATA.TRACK.ThetaForce=0;

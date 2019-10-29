@@ -3,6 +3,7 @@ function [MATB_DATA]=Init_COMM(MATB_DATA)
 r=Button_COMM(MATB_DATA);
 ColorBar=[0 0.4470 0.7410];
 set(r,'value',0);
+r(1).Value = 1;
 title('COMMUNICATIONS','fontsize',21,'color',ColorBar)
 % text(0,1,'CALL SIGN : NASA-504','fontsize',18,'color',ColorBar)
 axis off
@@ -88,7 +89,7 @@ MATB_DATA.COMM.NomFichierAudio={
     'OWN_COM2_128-550.wav'
     'OWN_COM2_129-575.wav'};
 % a='Loading ';
-for i=1:80
+for i=1:80 % Load all the audio directly into memory
 %     a=cat(2,a,'.'); disp(a)
     [y,Fs] = audioread(['Audio/' MATB_DATA.COMM.NomFichierAudio{i}]);
     MATB_DATA.COMM.ListFichierAudio{i}=resample(y,44100,Fs);

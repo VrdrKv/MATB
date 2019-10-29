@@ -2,10 +2,22 @@
 function [MATB_DATA]=Update_KEYBOARD(MATB_DATA)
 % Update_KeyBoard
 
-AutreClavierF1F6={'w','x','c','v','b','n'};
+% KEY CONFIG
+% AutreClavierF1F6={'z','e','r','t','y','u'};
+AutreClavierF1F6={};
 ToucheF1F6=cat(2,AutreClavierF1F6,'F');
 
-if IsLinux % Linux + Double Clavier
+TouchePompeKb1={'1','2','3','4','6','7','8','9'}; % pour utiliser le clavier de COCPIT pour les pompes. Attention, les touches ...
+% devraient normalement etre les caractères speciaux de la premiere ligne du clavier comme ci-apres TouchePompeKb1={'1!','2@',"3#",'4$','6^','7&','8*','9('};
+% mais la fonction ismember(KeyName(1), TouchePompe) ne considere que le premier terme du keyname. nousa avons donc simplement garde les premiers
+% caracteres
+
+%TouchePompeKb1={'1','2','3','4','5','6','7','8'}; %  pour utiliser les touches du pave numerique (i.e., comme initialement programme)
+%TouchePompeKb2={'w','x','c','v','b','n',',','.'};
+TouchePompeKb2={};
+TouchePompe=cat(2,TouchePompeKb1,TouchePompeKb2);
+
+if IsLinux % % Linux + Double Clavier
     [ keyIsDown1, ~, keyCode1 ] = KbCheck(7);
     [ keyIsDown2, ~, keyCode2 ] = KbCheck(6);
 else % Windows
@@ -13,27 +25,29 @@ else % Windows
     [ keyIsDown1, firstPress]=KbQueueCheck([]); keyIsDown2=0;
 end
 
-% keyCode1 = find(keyCode1, 1);
+% keyCode1 = find(keyCode1, 1); 
 % keyCode2 = find(keyCode2, 1);
 
 if keyIsDown1 || keyIsDown2
     if keyIsDown1
-        %         Kb=1; KeyName=KbName(keyCode1);
+% %           Kb=1; KeyName=KbName(keyCode1); 
         Kb=1; KeyName=KbName(find(firstPress,1));
     else
-        Kb=2; KeyName=KbName(keyCode2);
+        Kb=2; KeyName=keyCode2;
+        %Kb=2; KeyName=KbName(keyCode2);
     end
     %     fprintf('"%s" typed at time %.3f seconds\n', KbName(keyCode), timeSecs - startSecs);
     
     if ~isempty(KeyName)
         %---------- Gestion Pompe Clavier
-        if any(str2double(KeyName(1)) == 1:8)
-            POMPE_Number=find(str2double(KeyName(1)) == 1:8);
+        if ismember(KeyName(1), TouchePompe)
             
-            if size(KeyName,2)==2
-                send_log(['KB' num2str(1) ' PMP'],KeyName(1))
-            else
-                send_log(['KB' num2str(2) ' PMP'],KeyName(1))
+            if ismember(KeyName(1), TouchePompeKb1)
+                POMPE_Number=find(strcmp( KeyName(1),TouchePompeKb1));
+                send_log(['KB' num2str(1) ' PMP'],num2str(POMPE_Number))
+            else %ismember(KeyName(1), TouchePompeKb2)
+                POMPE_Number=find(strcmp( KeyName(1),TouchePompeKb2  ));
+                send_log(['KB' num2str(2) ' PMP'],num2str(POMPE_Number))
             end
             %         MATB_DATA.KeyboardAction{MATB_DATA.ScenarioNumber}=cat(1,MATB_DATA.KeyboardAction{MATB_DATA.ScenarioNumber},['KB '
             

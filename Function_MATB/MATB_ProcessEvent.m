@@ -24,7 +24,7 @@ if any(lE(15:18)~=0) % Si jamais y'a de la COMM a envoyer
     TypeCOMM=find(ttt);
     IdFichier=find(MATB_DATA.COMM.IdxCOMM(:,1)==TypeOwnOth & MATB_DATA.COMM.IdxCOMM(:,2)==TypeCOMM);
     
-    % VERSIO LOADING RESAMPLING a la volee
+    % VERSIO LOADING RESAMPLING a la volée mamene : Trop long
     %     FichierAudio=MATB_DATA.COMM.ListFichierAudio{IdFichier(randi(8,1))};
     %     [y,Fs] = audioread(['Audio/' FichierAudio]);
     %     y2=resample(y,44100,Fs);

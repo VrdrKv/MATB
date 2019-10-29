@@ -43,5 +43,5 @@ text(7.2,-0.5,'F4','fontsize',21,'color',Colorbar)
 
 title('MONITORING','fontsize',21,'color',Colorbar)
 
-faulty_al=zeros(6,3); % Etat 0:Ok 1:faulty   /   VAleur(F1F4) 1:haut -1 bas   / GetsActivation
+faulty_al=zeros(6,3); % Etat 0:Ok 1:faulty   /   Valeur(F1F4) 1:haut -1 bas   / GetsActivation
 MATB_DATA.SYSMON.EtatAlarm=faulty_al;

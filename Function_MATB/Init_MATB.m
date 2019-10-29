@@ -1,17 +1,23 @@
 function [MATB_DATA]=Init_MATB(MATB_DATA)
 
-% BlackScreen
-figure('position',get(0,'Screensize')+[-1 -1 1 1]*10,'menubar','none','numbertitle','off','color','k','windowstyle','modal');
+%--- Generate full screen black window behind
+% figure('position',get(0,'Screensize')+[-1 -1 1 1]*10,'menubar','none','numbertitle','off','color','k');
 % ScrSize=get(0,'ScreenSize');
-% f=figure('position',[(ScrSize(3)/2)-(ScrSize(4)/2) 0 ScrSize(4) (ScrSize(3)/2)+(ScrSize(4)/2)],...
+% f=figure('position',[(ScrSize(3)/2)-(ScrSize(4)/2) 0 ScrSize(4) (ScrSize(3)/2)+(ScrSize(4)/2)],...,'windowstate','fullscreen'
 %     'menubar','none','numbertitle','off','resize','on');
 % % set(gcf,'position',[425         20        1100        1040]);
-f=figure('position',[425         20        1100        1020],...
-    'menubar','none','numbertitle','off','resize','off','windowstyle','modal');
+figure('windowstate','fullscreen','color','k','menubar','none')
+
+%--- MATB main figure -------
+MATB_DATA.MainFigurePosition=[ 428 32   1100  1020];
+f=figure('position',MATB_DATA.MainFigurePosition,...
+    'menubar','none','numbertitle','off','resize','off');
 % f=figure('position',[425         20        1100        1020],...
 %     'menubar','none','numbertitle','off','resize','off');
 MATB_DATA.MainFigure=f;
+f.Color=[1 1 1];
 
+%--------- Initialize all the Subtasks 
 subplot('Position',[0.48,0.53,0.4,0.4])
 [MATB_DATA]=Init_TRACK(MATB_DATA);
 
