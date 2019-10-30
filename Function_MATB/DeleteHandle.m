@@ -9,3 +9,4 @@ if MATB_DATA.GazepointEyeTracker
         delete(MATB_DATA.EyeTrack.client_socket{i});
     end
 end
+delete(get(0,'children'))

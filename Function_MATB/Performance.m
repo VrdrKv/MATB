@@ -2,7 +2,7 @@
 function Performance
 global MATB_DATA
 
-FigPerf=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off','name','Performance','windowstyle','Modal');
+FigPerf=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off','name','Performance','windowstyle','Modal','CloseRequestFcn',@CloseFigEmpty);
 
 Posi=[ .1 .6 .3 .3
        .5 .55 .4 .35
@@ -353,7 +353,7 @@ while true
     end
 end
 
-close(FigPerf)
+delete(FigPerf)
 
 % close(PRfig)
 % close(PTfig)

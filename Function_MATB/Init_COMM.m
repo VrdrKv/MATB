@@ -91,9 +91,14 @@ MATB_DATA.COMM.NomFichierAudio={
     'OWN_COM2_128-550.wav'
     'OWN_COM2_129-575.wav'};
 % a='Loading ';
-for i=1:80 % Load all the audio directly into memory
-%     a=cat(2,a,'.'); disp(a)
-    [y,Fs] = audioread(['Audio/' MATB_DATA.COMM.NomFichierAudio{i}]);
-    MATB_DATA.COMM.ListFichierAudio{i}=resample(y,44100,Fs);
+try
+    for i=1:80 % Load all the audio directly into memory
+        %     a=cat(2,a,'.'); disp(a)
+        [y,Fs] = audioread(['Audio/' MATB_DATA.COMM.NomFichierAudio{i}]);
+        MATB_DATA.COMM.ListFichierAudio{i}=resample(y,44100,Fs);
+    end
+    MATB_DATA.COMM.IdxCOMM=cat(2,[-ones(20,1) ; ones(20,1) ; -ones(20,1) ; ones(20,1)],[ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*3 ; ones(10,1)*4 ; ones(10,1)*3 ; ones(10,1)*4]);
+catch
+    warning('Audio File could not be reach, Comm task deactivated')
+    MATB_DATA.Param.CommActive = 0;
 end
-MATB_DATA.COMM.IdxCOMM=cat(2,[-ones(20,1) ; ones(20,1) ; -ones(20,1) ; ones(20,1)],[ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*3 ; ones(10,1)*4 ; ones(10,1)*3 ; ones(10,1)*4]);

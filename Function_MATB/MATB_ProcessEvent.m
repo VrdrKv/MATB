@@ -18,7 +18,7 @@ if any(lE(7:14)~=0) % Si jamais y'a des POMPES a changer
     set(MATB_DATA.RESMAN.handlePompe(find(pmpNum==1)),'backgroundcolor',[.94 .94 .94])
 end
 
-if any(lE(15:18)~=0) % Si jamais y'a de la COMM a envoyer
+if any(lE(15:18)~=0) && MATB_DATA.Param.CommActive % Si jamais y'a de la COMM a envoyer
     ttt=lE(15:18);
     TypeOwnOth=ttt(find(ttt));
     TypeCOMM=find(ttt);

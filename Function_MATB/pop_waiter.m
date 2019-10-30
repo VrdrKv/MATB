@@ -12,7 +12,7 @@ if ~exist('postext')
     postext=[1 -100 850 250];
 end
     
-pop=dialog('position',pos);
+pop=dialog('position',pos,'CloseRequestFcn',@CloseFigEmpty);
 txt = uicontrol('Parent',pop,...
            'Style','text',...
            'HorizontalAlignment', 'center',...
@@ -30,7 +30,7 @@ while true
     end
 end
 
-close(pop)
+delete(pop)
 
 end
 

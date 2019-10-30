@@ -24,7 +24,7 @@ MATB_DATA.GazepointEyeTracker = 0;  % if 1, Double Gazepoint Active
 MATB_DATA.LSL_Streaming = 1;        % if 1, Data Streamed via LSL
 MATB_DATA.Param.PumpCloseTrack = 0; % if 1, When track is out of big square all pump off
 MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2000 TRACK is harder
-
+MATB_DATA.Param.CommActive = 1;     % if 1, COMM Task is active
 %-------- Initializing ----------------------------------------------------
 Init_LOG;
 Init_LSL;
@@ -59,7 +59,7 @@ MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high wo
 %------------------------------------------------------------ --------------
 
 %-------- Scenario Duration (sec) -----------------------------------------
-MATB_DATA.ScenarioDuration=[10 10 10];
+MATB_DATA.ScenarioDuration=[30 10 10];
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*5,ones(1,8)*5);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*150,ones(1,8)*300);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*10,ones(1,8)*300);
@@ -80,10 +80,10 @@ pop_waiter(["Bonjour,",...
     "(Appuyez sur 'ENTREE' pour commencer)"],1); 
 
 %-------- TUTORIAL  -------------------------------------------------------
-% pop_waiter(["Afin de vous familiariser avec la tâche, merci de réaliser ce petit tutoriel", ... 
-%      "(Appuyez sur 'ENTREE' pour continuer)"],1);
-% Tutorial
-% pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continuer',1)
+pop_waiter(["Afin de vous familiariser avec la tâche, merci de réaliser ce petit tutoriel", ... 
+     "(Appuyez sur 'ENTREE' pour continuer)"],1);
+Tutorial
+pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continuer',1)
 %--------------------------------------------------------------------------
 
 %-------- TRAINING---------------------------------------------------------

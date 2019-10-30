@@ -8,14 +8,15 @@ joy = MATB_DATA.TRACK.JoystickID;
 ButPasse = {'NAV1' [3]; 'NAV2' [2]; 'COM1' [1]; 'COM2' [4]}; %!!!Rangé par ordre décroissant: le dernier créé est le premier dans la liste
 DigIdx = {'NAV1' 9 8 24 27; 'NAV2' 7 6 20 23; 'COM1' 5 4 16 19; 'COM2' 3 2 12 15};
 
-switch find(button(joy))
-	case 1		
+ButonAppuye = find(button(joy));
+switch ButonAppuye(1) % On prend le premier sion ca fait une erreur quand on appui sur 2 en eme temps
+	case 1 		
 		set(MATB_DATA.MainFigure.Children(12:27), 'Visible','off');
 		MATB_DATA.MainFigure.Children(11).Children(cell2mat(ButPasse(find(strcmp(ButPasse(:,1), MATB_DATA.MainFigure.Children(11).SelectedObject.String)),2))).Value = 1;
 		set(MATB_DATA.MainFigure.Children(DigIdx{find(strcmp(MATB_DATA.MainFigure.Children(11).SelectedObject.String,...
 			DigIdx(:,1))),4}:DigIdx{find(strcmp(MATB_DATA.MainFigure.Children(11).SelectedObject.String,...
 			DigIdx(:,1))),5}), 'Visible','on');	
-	case 2
+	case 2 % VALIDE
 		set(MATB_DATA.MainFigure.Children(11).Children,'Value',0)
 		MATB_DATA.MainFigure.Children(11).Children(4).Value = 1; % Modifie AL
 		set(MATB_DATA.MainFigure.Children(12:27), 'Visible','off');
