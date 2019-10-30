@@ -20,7 +20,7 @@ global fileID MATB_DATA % Almost every important game mechanics data is stocked 
 % SALE : MATB_DATA est parfois global parfois passer en argument
 MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 
-MATB_DATA.GazepointEyeTracker = 0;  % if 1, Double Gazepoint Active
+MATB_DATA.GazepointEyeTracker = 1;  % if 1, Double Gazepoint Active
 MATB_DATA.LSL_Streaming = 0;        % if 1, Data Streamed via LSL
 MATB_DATA.Param.PumpCloseTrack = 0; % if 1, When track is out of big square all pump off
 MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2000 TRACK is harder
@@ -35,7 +35,9 @@ MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2
 %-------- Scenario Type ---------------------------------------------------
 % Exemple : 2 scenario 10sec each
 MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high workload
-    0];
+    0 
+    0
+    30];
 
 % Randomisation=[ 5  1  2  6  8  7  4  3 ];
 % MATB_DATA.ScenarioType=[ % Interation 0/1  WL_PF 0/1 WL_PM 0/1
@@ -57,7 +59,7 @@ MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high wo
 %------------------------------------------------------------ --------------
 
 %-------- Scenario Duration (sec) -----------------------------------------
-MATB_DATA.ScenarioDuration=[30 120 300];
+MATB_DATA.ScenarioDuration=[10 10 10];
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*5,ones(1,8)*5);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*150,ones(1,8)*300);
 % MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*10,ones(1,8)*300);
@@ -66,8 +68,8 @@ MATB_DATA.ScenarioDuration=[30 120 300];
 %--------------------------------------------------------------------------
 
 %-------- EVENT -----------------------------------------------------------
-gen_EVENT % Automatically generate events
-%EventManuel % Program MATB events manually
+% gen_EVENT % Automatically generate events
+EventManuel % Program MATB events manually
 %--------------------------------------------------------------------------
 
 ListenChar(-1) % Stop taking keyboard input into matlab console
@@ -85,11 +87,11 @@ pop_waiter(["Bonjour,",...
 %--------------------------------------------------------------------------
 
 %-------- TRAINING---------------------------------------------------------
-% pop_waiter(["Veuillez à present vous entrainer sur la tâche", ...
-%     "(Appuyez sur 'ENTREE' pour continuer)"],1);
-% Training
-% pop_waiter(["Les sessions d'entrainement sont desormais terminées", ...
-%     "(Appuyez sur 'ENTREE' pour continuer)"],1);
+pop_waiter(["Veuillez à present vous entrainer sur la tâche", ...
+    "(Appuyez sur 'ENTREE' pour continuer)"],1);
+Training
+pop_waiter(["Les sessions d'entrainement sont desormais terminées", ...
+    "(Appuyez sur 'ENTREE' pour continuer)"],1);
 %--------------------------------------------------------------------------
 
 

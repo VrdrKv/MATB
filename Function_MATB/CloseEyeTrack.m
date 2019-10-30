@@ -1,6 +1,6 @@
 function CloseEyeTrack(MATB_DATA)
 
-for i=1:2
+for i=1%:2
     client_socket{i}=MATB_DATA.EyeTrack.client_socket{i};
     fprintf(client_socket{i}, '<SET ID="ENABLE_SEND_DATA" STATE="0" />');
     fprintf(client_socket{i}, '<SET ID="TRACKER_DISPLAY" STATE ="0" />');
@@ -12,7 +12,7 @@ for i=1:2
     pause(0.5)
     while  (get(client_socket{i}, 'BytesAvailable') > 0)
         results = fscanf(client_socket{i});
-%                 disp(results)
+        disp(results)
         pause(.01);
     end
 end

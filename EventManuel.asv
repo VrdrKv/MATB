@@ -51,7 +51,7 @@ MATB_DATA.RESMAN.FluxPompe{3}=[70 60 70 60 60 60 40 40 80 80]/3;
 
 MATB_DATA.TRACK.Difficulty{1}=0; % Easy = 0 / Hard = 1
 MATB_DATA.TRACK.Difficulty{2}=0;
-MATB_DATA.TRACK.Difficulty{3}=0;
+MATB_DATA.TRACK.Difficulty{2}=0;
 
 MATB_DATA.EVENT{1}=EVENT{1}; % Attribute EVENT into MATB_DATA
 MATB_DATA.EVENT{2}=EVENT{2};
