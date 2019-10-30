@@ -1,5 +1,5 @@
-function CloseEyeTrack(MATB_DATA)
-
+function CloseEyeTrack
+global MATB_DATA
 for i=1%:2
     client_socket{i}=MATB_DATA.EyeTrack.client_socket{i};
     fprintf(client_socket{i}, '<SET ID="ENABLE_SEND_DATA" STATE="0" />');

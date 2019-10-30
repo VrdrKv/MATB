@@ -1,6 +1,8 @@
 % function [ListFichierAudio,IdxCOMM]=Init_COMM(f)
-function [MATB_DATA]=Init_COMM(MATB_DATA)
-r=Button_COMM(MATB_DATA);
+function Init_COMM
+global MATB_DATA
+
+r=Button_COMM;
 ColorBar=[0 0.4470 0.7410];
 set(r,'value',0);
 r(1).Value = 1;

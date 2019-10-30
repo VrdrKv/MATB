@@ -1,5 +1,5 @@
-function [MATB_DATA]=Send_EyeTRACK(MATB_DATA)
-global Start
+function Send_EyeTRACK
+global Start MATB_DATA
 if MATB_DATA.GazepointEyeTracker
 
     for i=1%:2 2 eye track ?

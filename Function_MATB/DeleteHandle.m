@@ -1,5 +1,5 @@
-function DeleteHandle(MATB_DATA)
-
+function DeleteHandle
+global MATB_DATA
 PsychHID('KbQueueStop'), PsychPortAudio('close', MATB_DATA.handlePortAudio)
 
 if MATB_DATA.GazepointEyeTracker

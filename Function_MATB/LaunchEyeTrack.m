@@ -1,4 +1,5 @@
-function LaunchEyeTrack(MATB_DATA)
+function LaunchEyeTrack
+global MATB_DATA
 
 for i=1%:2 For 2 eye track potentialy
     client_socket{i}=MATB_DATA.EyeTrack.client_socket{i};

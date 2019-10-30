@@ -1,5 +1,5 @@
-function r=Button_COMM(MATB_DATA)
-
+function r=Button_COMM
+global MATB_DATA
 f=MATB_DATA.MainFigure;
 % FigPos=get(f,'position');
 % LargeurFig=FigPos(3);

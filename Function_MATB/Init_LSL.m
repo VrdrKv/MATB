@@ -1,6 +1,6 @@
 
-function [MATB_DATA]=Init_LSL(MATB_DATA)
-global fileID outlet
+function Init_LSL
+global MATB_DATA
 
 if MATB_DATA.LSL_Streaming
     try
@@ -14,7 +14,7 @@ if MATB_DATA.LSL_Streaming
         MATB_DATA.LSLoutlet=outlet;
         
         % fprintf(fileID,'%.4f \t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'LAB STREAMING LAYER INIT');
-        fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'LAB STREAMING LAYER INIT');
+        fprintf(MATB_DATA.LogFileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'LAB STREAMING LAYER INIT');
         outlet.push_sample({0,'LSL Init',''});
         
         %%---------- EYE TRACKING
@@ -26,5 +26,6 @@ if MATB_DATA.LSL_Streaming
         disp('Now transmitting data...');
     catch
         warning('Be sure to have the LSL library added to the path')
+        MATB_DATA.LSL_Streaming = 0;
     end
 end

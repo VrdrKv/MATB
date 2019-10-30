@@ -1,6 +1,6 @@
 % function [THETA_Force,LastUpdate_TRACK]=Update_TRACK(h,THETA_Force,joy)
-function [MATB_DATA]=Update_TRACK(MATB_DATA)
-
+function Update_TRACK
+global MATB_DATA
 h=MATB_DATA.TRACK.handleCible;
 
 x=h(2).XData; y=h(2).YData; % On recupère la position actuel

@@ -1,6 +1,6 @@
 % Init LOG
-function [MATB_DATA]=Init_LOG(MATB_DATA)
-global fileID 
+function Init_LOG
+global MATB_DATA 
 dt=char(datetime); dt([3 7 12 15 18])='_';
 fileID=fopen(['LOG/log_' dt '.txt'],'w');
 

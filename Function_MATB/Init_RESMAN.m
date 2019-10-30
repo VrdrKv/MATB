@@ -1,5 +1,6 @@
 % function [pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP]=Init_RESMAN(f)
-function [MATB_DATA]=Init_RESMAN(MATB_DATA)
+function Init_RESMAN
+global MATB_DATA
 
 ColorBar=[0 0.4470 0.7410];
 ColorBar2=[116/256 208/256 241/256];

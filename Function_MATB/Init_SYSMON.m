@@ -1,5 +1,6 @@
 % function [al,faulty_al]=Init_SYSMON(f)
-function [MATB_DATA]=Init_SYSMON(MATB_DATA)
+function Init_SYSMON
+global MATB_DATA
 %%
 ColorBar2=[116/256 208/256 241/256];
 Colorbar=[0 0.4470 0.7410];

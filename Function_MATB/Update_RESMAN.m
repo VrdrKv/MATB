@@ -1,6 +1,6 @@
 % function [LastUpdate_RESMAN,pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP]=Update_RESMAN(pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP)
-function [MATB_DATA]=Update_RESMAN(MATB_DATA)
-
+function Update_RESMAN
+global MATB_DATA
 ColorBar=[0 0.4470 0.7410];
 colorPMP=cell2mat(get(MATB_DATA.RESMAN.handlePompe,'backgroundcolor')); % Recherche l'état des pompes en regardant la couleur du boutons
 set(MATB_DATA.RESMAN.handlePompe(find(MATB_DATA.RESMAN.EtatPompe)),'backgroundcolor',[1 0 0]); % Permet de prendre en compte les MouseClick

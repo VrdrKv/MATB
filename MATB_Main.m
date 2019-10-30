@@ -1,6 +1,5 @@
 function MATB_Main
-
-global fileID Start outlet MATB_DATA
+global MATB_DATA
 
 EVENT=MATB_DATA.EVENT{MATB_DATA.ScenarioNumber};
 
@@ -22,13 +21,13 @@ EVENT=MATB_DATA.EVENT{MATB_DATA.ScenarioNumber};
 % end
 
 if MATB_DATA.GazepointEyeTracker
-    LaunchEyeTrack(MATB_DATA)
+    LaunchEyeTrack
 end
 
 Start = GetSecs;
-fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,['STARTING SCENARIO' num2str(MATB_DATA.ScenarioNumber)]);
+fprintf(MATB_DATA.LogFileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,['STARTING SCENARIO' num2str(MATB_DATA.ScenarioNumber)]);
 if MATB_DATA.LSL_Streaming
-    outlet.push_sample({0,'STARTING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
+    MATB_DATA.LSLoutlet.push_sample({0,'STARTING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
 end
 
 % if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1)==0
@@ -46,7 +45,7 @@ if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1)==0
 else
     WL_PM='HARD';
 end
-fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,[ ' Difficulty : ' WL_PM]);
+fprintf(MATB_DATA.LogFileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,[ ' Difficulty : ' WL_PM]);
 
 MATB_DATA.LastUpdate.RESMAN=Start;
 MATB_DATA.LastUpdate.SYSMON=Start;
@@ -67,40 +66,37 @@ KbQueueCreate(deviceIndex);
 KbQueueStart(deviceIndex);
 
 set(MATB_DATA.MainFigure,'position',MATB_DATA.MainFigurePosition)
-
 MATB_DATA.ScenarioStartedAt=Start;
-% joy = vrjoystick(1);
 
-while true % Main GAME LOOP
+while true % Main GAME LOOp
     t=GetSecs;
     %     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
     
     % SET EVENTS
     if any(EVENT(:,1)==round(t-Start,1)) &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         lE=EVENT(EVENT(:,1)==round(t-Start,1),2:19);
-        send_log('EVENT VEC',num2str(lE))
-        [MATB_DATA]=MATB_ProcessEvent(MATB_DATA,lE);
+        send_log('EVENT VECTOR',num2str(lE))
+        MATB_ProcessEvent(lE);
     end
     
     % UPDATE ALL TASKS
     %     if t-MATB_DATA.LastUpdate.KB >= 0.0
-    [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
-    [MATB_DATA]=Send_EyeTRACK(MATB_DATA);
+    Update_KEYBOARD()
+    Send_EyeTRACK()
 
     
 	if ~isempty(MATB_DATA.TRACK.JoystickID) && sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
-        Update_JOYSTICKBUT(MATB_DATA.TRACK.JoystickID)
-	end
-    %     end
+        Update_JOYSTICKBUT()
+    end
     
     if t-MATB_DATA.LastUpdate.TRACK >= 0.02
-        [MATB_DATA]=Update_TRACK(MATB_DATA);
+        Update_TRACK()
     end
     if t-MATB_DATA.LastUpdate.RESMAN >= 1
-        [MATB_DATA]=Update_RESMAN(MATB_DATA);
+        Update_RESMAN()
     end
     if t-MATB_DATA.LastUpdate.SYSMON >= 0.2
-        [MATB_DATA]=Update_SYSMON(MATB_DATA);
+        Update_SYSMON()
     end
     if t-MATB_DATA.LastUpdate.LOG >= 0.5
         x=MATB_DATA.TRACK.handleCible(2).XData; y=MATB_DATA.TRACK.handleCible(2).YData;
@@ -113,13 +109,13 @@ while true % Main GAME LOOP
     end
     
     if t-Start > MATB_DATA.ScenarioDuration(MATB_DATA.ScenarioNumber)
-        fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),t-Start,['STOPING SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]);
+        fprintf(MATB_DATA.LogFileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),t-Start,['STOPING SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]);
         if MATB_DATA.LSL_Streaming
-            outlet.push_sample({0,'STOPING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
+            MATB_DATA.LSLoutlet.push_sample({0,'STOPING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
         end
         PsychPortAudio('Stop', MATB_DATA.handlePortAudio);
         
-        [MATB_DATA]=ReInit_MATB(MATB_DATA);
+        ReInit_MATB()
         break
     end
     %     pause(0.0001)

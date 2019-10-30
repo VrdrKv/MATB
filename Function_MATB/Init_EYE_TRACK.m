@@ -1,5 +1,5 @@
-function [MATB_DATA]=Init_EYE_TRACK(MATB_DATA)
-
+function Init_EYE_TRACK
+global MATB_DATA
 if MATB_DATA.GazepointEyeTracker
     try
         %------- CREATE FILE

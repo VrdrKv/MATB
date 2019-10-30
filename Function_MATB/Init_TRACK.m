@@ -1,5 +1,6 @@
 % function [h_cible,THETA_Force,joy]=Init_TRACK(f)
-function [MATB_DATA]=Init_TRACK(MATB_DATA)
+function Init_TRACK
+global MATB_DATA
 
 ColorBar=[0 0.4470 0.7410];
 % Grande Transverse

@@ -1,7 +1,9 @@
 %---------- Gestion Com Joystick
 % function [MATB_DATA] = Update_JOYSTICKBUT(MATB_DATA, joy)
-function Update_JOYSTICKBUT(joy)
+function Update_JOYSTICKBUT
 global MATB_DATA
+
+joy = MATB_DATA.TRACK.JoystickID;
 
 ButPasse = {'NAV1' [3]; 'NAV2' [2]; 'COM1' [1]; 'COM2' [4]}; %!!!Rangé par ordre décroissant: le dernier créé est le premier dans la liste
 DigIdx = {'NAV1' 9 8 24 27; 'NAV2' 7 6 20 23; 'COM1' 5 4 16 19; 'COM2' 3 2 12 15};

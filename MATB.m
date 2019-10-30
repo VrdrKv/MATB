@@ -16,20 +16,20 @@ close all; clc; clear; fclose('all');
 addpath('Function_MATB')
 rng('shuffle')
 
-global fileID MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA
+global MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA
 % SALE : MATB_DATA est parfois global parfois passer en argument
 MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 
-MATB_DATA.GazepointEyeTracker = 1;  % if 1, Double Gazepoint Active
-MATB_DATA.LSL_Streaming = 0;        % if 1, Data Streamed via LSL
+MATB_DATA.GazepointEyeTracker = 0;  % if 1, Double Gazepoint Active
+MATB_DATA.LSL_Streaming = 1;        % if 1, Data Streamed via LSL
 MATB_DATA.Param.PumpCloseTrack = 0; % if 1, When track is out of big square all pump off
 MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2000 TRACK is harder
 
 %-------- Initializing ----------------------------------------------------
-[MATB_DATA]=Init_LOG(MATB_DATA);
-[MATB_DATA]=Init_LSL(MATB_DATA);
-[MATB_DATA]=Init_MATB(MATB_DATA);
-[MATB_DATA]=Init_EYE_TRACK(MATB_DATA);
+Init_LOG;
+Init_LSL;
+Init_MATB;
+Init_EYE_TRACK;
 %--------------------------------------------------------------------------
 
 %-------- Scenario Type ---------------------------------------------------
@@ -135,12 +135,12 @@ pop_waiter(["Enregistrement des données",...
 SauvegardeDATA
 pop_waiter(["Veuillez à présent compléter un dernier questionnaire",...
     "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
-slidervalues
+% slidervalues
 % pop_waiter(["Thank you so much!", ...
 %    "Que Dieu vous garde!"],1);
 
-ListenChar(0); fclose(fileID);
-DeleteHandle(MATB_DATA)
+ListenChar(0); fclose(MATB_DATA.LogFileID);
+DeleteHandle
 
 close all
 diary off

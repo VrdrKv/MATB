@@ -1,5 +1,6 @@
 % function [LastUpdate_SYSMON,al,faulty_al]=Update_SYSMON(faulty_al,al)
-function [MATB_DATA]=Update_SYSMON(MATB_DATA)
+function Update_SYSMON
+global MATB_DATA
 
 POS=randi(3,1,4)-2; Er=[-1 1];
 MATB_DATA.SYSMON.Alarm(1).YData=[4 7 7 4]+POS(1)+MATB_DATA.SYSMON.EtatAlarm(1,1)*3*MATB_DATA.SYSMON.EtatAlarm(1,2);

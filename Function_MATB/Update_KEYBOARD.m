@@ -1,5 +1,6 @@
 %         [pmp,al,faulty_al,LastUpdate_KB]=Update_KEYBOARD(pmp,al,faulty_al);
-function [MATB_DATA]=Update_KEYBOARD(MATB_DATA)
+function Update_KEYBOARD
+global MATB_DATA
 % Update_KeyBoard
 
 % KEY CONFIG

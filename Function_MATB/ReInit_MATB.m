@@ -1,5 +1,5 @@
-function [MATB_DATA]=ReInit_MATB(MATB_DATA)
-
+function ReInit_MATB
+global MATB_DATA
 ColorBar=[0 0.4470 0.7410];
 
 % RESMAN
