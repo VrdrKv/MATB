@@ -9,7 +9,7 @@ ButPasse = {'NAV1' [3]; 'NAV2' [2]; 'COM1' [1]; 'COM2' [4]}; %!!!Rangé par ordre
 DigIdx = {'NAV1' 9 8 24 27; 'NAV2' 7 6 20 23; 'COM1' 5 4 16 19; 'COM2' 3 2 12 15};
 
 ButonAppuye = find(button(joy));
-switch ButonAppuye(1) % On prend le premier sion ca fait une erreur quand on appui sur 2 en eme temps
+switch ButonAppuye(1) % On prend le premier sinon ca fait une erreur quand on appui sur 2 en eme temps
 	case 1 		
 		set(MATB_DATA.MainFigure.Children(12:27), 'Visible','off');
 		MATB_DATA.MainFigure.Children(11).Children(cell2mat(ButPasse(find(strcmp(ButPasse(:,1), MATB_DATA.MainFigure.Children(11).SelectedObject.String)),2))).Value = 1;

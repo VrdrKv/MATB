@@ -64,7 +64,8 @@ if MATB_DATA.GazepointEyeTracker
             MATB_DATA.EyeTrack.client_socket{i}=client_socket{i};
         end
     catch
-        warning('Be sure to have EyeTracker Connected')
+        warning('Be sure to have EyeTracker Connected - Problem during connection')
+        MATB_DATA.GazepointEyeTracker = 0;
     end
 end
 

@@ -1,4 +1,4 @@
-function r=Button_COMM
+function [bs,r,ButtonGroup,ValueGroup]=Button_COMM
 global MATB_DATA
 f=MATB_DATA.MainFigure;
 % FigPos=get(f,'position');
@@ -9,45 +9,54 @@ HauteurFig=1450;
 
 ColorBar=[0 0.4470 0.7410];
 
-% BUTTON PLUS & MINUS !!!!!Ne pas déplacer/Laisser avant bs!!!!! -- AL
-plus_n1_b = uicontrol(f,'Style','pushbutton','String','+','visible','on',...
-    'Position',[LargeurFig*.17 HauteurFig*.255 20 20],'Fontsize',16,'Callback', @plus_n1);
-moins_n1_b = uicontrol(f,'Style','pushbutton','String','-','visible','on',...
-    'Position',[LargeurFig*.17 HauteurFig*.24 20 20],'Fontsize',16,'Callback', @moins_n1);
-plus_n1d_b = uicontrol(f,'Style','pushbutton','String','+','visible','on',...
-    'Position',[LargeurFig*.29 HauteurFig*.255 20 20],'Fontsize',16,'Callback', @plus_n1d);
-moins_n1d_b = uicontrol(f,'Style','pushbutton','String','-','visible','on',...
-    'Position',[LargeurFig*.29 HauteurFig*.24 20 20],'Fontsize',16,'Callback', @moins_n1d);
+%-------------------- BUTTON PLUS & MINUS !!!! ---------------------
+%------ !Ne pas déplacer/Laisser avant bs!!!!! -- AL
+plus_n1_b = uicontrol(f,'Style','pushbutton','String','+','visible','on','Tag','11',...
+    'Position',[LargeurFig*.17 HauteurFig*.255 20 20],'Fontsize',16,'Callback', @plus);
+moins_n1_b = uicontrol(f,'Style','pushbutton','String','-','visible','on','Tag','11',...
+    'Position',[LargeurFig*.17 HauteurFig*.24 20 20],'Fontsize',16,'Callback', @moins);
+plus_n1d_b = uicontrol(f,'Style','pushbutton','String','+','visible','on','Tag','12',...
+    'Position',[LargeurFig*.29 HauteurFig*.255 20 20],'Fontsize',16,'Callback', @plus);
+moins_n1d_b = uicontrol(f,'Style','pushbutton','String','-','visible','on','Tag','12',...
+    'Position',[LargeurFig*.29 HauteurFig*.24 20 20],'Fontsize',16,'Callback', @moins);
 
-plus_n2_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.205 20 20],'Fontsize',16,'Callback', @plus_n2);
-moins_n2_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.19 20 20],'Fontsize',16,'Callback', @moins_n2);
-plus_n2d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.205 20 20],'Fontsize',16,'Callback', @plus_n2d);
-moins_n2d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.19 20 20],'Fontsize',16,'Callback', @moins_n2d);
+ButtonGroup{1}=[plus_n1_b,moins_n1_b,plus_n1d_b,moins_n1d_b];
 
-plus_c1_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.155 20 20],'Fontsize',16,'Callback', @plus_c1);
-moins_c1_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.14 20 20],'Fontsize',16,'Callback', @moins_c1);
-plus_c1d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.155 20 20],'Fontsize',16,'Callback', @plus_c1d);
-moins_c1d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.14 20 20],'Fontsize',16,'Callback', @moins_c1d);
+plus_n2_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','21',...
+    'Position',[LargeurFig*.17 HauteurFig*.205 20 20],'Fontsize',16,'Callback', @plus);
+moins_n2_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','21',...
+    'Position',[LargeurFig*.17 HauteurFig*.19 20 20],'Fontsize',16,'Callback', @moins);
+plus_n2d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','22',...
+    'Position',[LargeurFig*.29 HauteurFig*.205 20 20],'Fontsize',16,'Callback', @plus);
+moins_n2d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','22',...
+    'Position',[LargeurFig*.29 HauteurFig*.19 20 20],'Fontsize',16,'Callback', @moins);
 
-plus_c2_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.105 20 20],'Fontsize',16,'Callback', @plus_c2);
-moins_c2_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.17 HauteurFig*.09 20 20],'Fontsize',16,'Callback', @moins_c2);
-plus_c2d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.105 20 20],'Fontsize',16,'Callback', @plus_c2d);
-moins_c2d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off',...
-    'Position',[LargeurFig*.29 HauteurFig*.09 20 20],'Fontsize',16,'Callback', @moins_c2d);
+ButtonGroup{2}=[plus_n2_b,moins_n2_b,plus_n2d_b,moins_n2d_b];
+
+plus_c1_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','31',...
+    'Position',[LargeurFig*.17 HauteurFig*.155 20 20],'Fontsize',16,'Callback', @plus);
+moins_c1_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','31',...
+    'Position',[LargeurFig*.17 HauteurFig*.14 20 20],'Fontsize',16,'Callback', @moins);
+plus_c1d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','32',...
+    'Position',[LargeurFig*.29 HauteurFig*.155 20 20],'Fontsize',16,'Callback', @plus);
+moins_c1d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','32',...
+    'Position',[LargeurFig*.29 HauteurFig*.14 20 20],'Fontsize',16,'Callback', @moins);
+
+ButtonGroup{3}=[plus_c1_b,moins_c1_b,plus_c1d_b,moins_c1d_b];
+
+plus_c2_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','41',...
+    'Position',[LargeurFig*.17 HauteurFig*.105 20 20],'Fontsize',16,'Callback', @plus);
+moins_c2_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','41',...
+    'Position',[LargeurFig*.17 HauteurFig*.09 20 20],'Fontsize',16,'Callback', @moins);
+plus_c2d_b = uicontrol(f,'Style','pushbutton','String','+','visible','off','Tag','42',...
+    'Position',[LargeurFig*.29 HauteurFig*.105 20 20],'Fontsize',16,'Callback', @plus);
+moins_c2d_b = uicontrol(f,'Style','pushbutton','String','-','visible','off','Tag','42',...
+    'Position',[LargeurFig*.29 HauteurFig*.09 20 20],'Fontsize',16,'Callback', @moins);
+
+ButtonGroup{4}=[plus_c2_b,moins_c2_b,plus_c2d_b,moins_c2d_b];
 
 
-% RADIO BUTTONS
+%-------------------- RADIO BUTTONS ---------------------
 bs = uibuttongroup('Visible','off',...
     'Position',[.05 .1 .11 .3],...
     'SelectionChangedFcn',@bselection);
@@ -59,7 +68,8 @@ r(1) = uicontrol(bs,'Style',...
     'ForegroundColor',ColorBar,...
     'HandleVisibility','on',...
     'Value',0,...
-    'Fontsize',19);
+    'Fontsize',19,...
+    'UserData',ButtonGroup{1});
 
 r(2) = uicontrol(bs,'Style','radiobutton',...
     'String','NAV2',...
@@ -67,7 +77,8 @@ r(2) = uicontrol(bs,'Style','radiobutton',...
     'ForegroundColor',ColorBar,...
     'HandleVisibility','on',...
     'Value',0,...
-    'Fontsize',19);
+    'Fontsize',19,...
+    'UserData',ButtonGroup{2});
 
 r(3) = uicontrol(bs,'Style','radiobutton',...
     'String','COM1',...
@@ -75,7 +86,8 @@ r(3) = uicontrol(bs,'Style','radiobutton',...
     'ForegroundColor',ColorBar,...
     'HandleVisibility','on',...
     'Value',0,...
-    'Fontsize',19);
+    'Fontsize',19,...
+    'UserData',ButtonGroup{3});
 
 r(4) = uicontrol(bs,'Style','radiobutton',...
     'String','COM2',...
@@ -83,7 +95,9 @@ r(4) = uicontrol(bs,'Style','radiobutton',...
     'ForegroundColor',ColorBar,...
     'HandleVisibility','on',...
     'Value',0,...
-    'Fontsize',19);
+    'Fontsize',19,...
+    'UserData',ButtonGroup{4});
+
 bs.Visible = 'on';
 bs.HandleVisibility = 'on';
 
@@ -93,8 +107,8 @@ uicontrol('Style','text',...
     'Fontsize',19,...
     'Foregroundcolor',ColorBar);
 
+%-------------------- % TEXT for NAV & COM ---------------------
 
-% TEXT for NAV & COM
 n1 = uicontrol('Style','text',...
     'Position',[LargeurFig*.19 HauteurFig*.24 50 40],...
     'String','112',...
@@ -138,155 +152,75 @@ c2d = uicontrol('Style','text',...
     'Fontsize',19,...
     'Foregroundcolor',ColorBar);
 
+ValueGroup=[n1 n1d
+    n2 n2d
+    c1 c1d
+    c2 c2d];
+
 apply_b = uicontrol(f,'Style','pushbutton','String','APPLY','Fontsize',19,...
     'Foregroundcolor',ColorBar,...
     'Position',[LargeurFig*.19 HauteurFig*.04 100 40],'Callback', @apply);
 
 % FUNCTION CONTROL
-    function apply(source,callbackdata)
-        set(r,'Value',0)
-        r(1).Value = 1; % Modifie AL
-        set(plus_n1_b,'Visible','on');set(moins_n1_b,'Visible','on')
-        set(plus_n1d_b,'Visible','on');set(moins_n1d_b,'Visible','on')
-        set(plus_n2_b,'Visible','off');set(moins_n2_b,'Visible','off')
-        set(plus_n2d_b,'Visible','off');set(moins_n2d_b,'Visible','off')
-        set(plus_c1_b,'Visible','off');set(moins_c1_b,'Visible','off')
-        set(plus_c1d_b,'Visible','off');set(moins_c1d_b,'Visible','off')
-        set(plus_c2_b,'Visible','off');set(moins_c2_b,'Visible','off')
-        set(plus_c2d_b,'Visible','off');set(moins_c2d_b,'Visible','off')
-        %         str=[num2str(GetSecs) '\t\t' num2str(GetSecs-Start)  '\t\t\t',...
-        %             ' COMM  \t ',...
-        %             '  NAV1:' get(n1, 'String') '.' get(n1d, 'String') ,...
-        %             '  NAV2:' get(n2, 'String') '.' get(n2d, 'String') ,...
-        %             '  COM1:' get(c1, 'String') '.' get(c1d, 'String') ,...
-        %             '  COM2:' get(c2, 'String') '.' get(c2d, 'String') '\n' ];
-        %         fprintf(fileID,str); outlet.push_sample({GetSecs-Start,[ ' COMM ',...
-        %             '  NAV1:' get(n1, 'String') '.' get(n1d, 'String') ,...
-        %             '  NAV2:' get(n2, 'String') '.' get(n2d, 'String') ,...
-        %             '  COM1:' get(c1, 'String') '.' get(c1d, 'String') ,...
-        %             '  COM2:' get(c2, 'String') '.' get(c2d, 'String')] });
+    function apply(~,~)
+%         set(r,'Value',0); set([r.UserData],'Visible','off') % No Selection      
+        set(bs,'SelectedObject',r(1));  bselection();% Back to First Modifie AL 
+        
         send_log('COMM APPLY',['  NAV1:' get(n1, 'String') '.' get(n1d, 'String') ,...
             '  NAV2:' get(n2, 'String') '.' get(n2d, 'String') ,...
             '  COM1:' get(c1, 'String') '.' get(c1d, 'String') ,...
             '  COM2:' get(c2, 'String') '.' get(c2d, 'String')]);
         
-        Value=cat(2, str2num(get(n1,'String')) + 0.001*str2num(get(n1d,'String')),...
-            str2num(get(n2,'String')) + 0.001*str2num(get(n2d,'String')),...
-            str2num(get(c1,'String')) + 0.001*str2num(get(c1d,'String')),...
-            str2num(get(c2,'String')) + 0.001*str2num(get(c2d,'String')) );
-
-        send_comm(Value)     
+        Value=cat(2, str2double(get(n1,'String')) + 0.001*str2double(get(n1d,'String')),...
+            str2double(get(n2,'String')) + 0.001*str2double(get(n2d,'String')),...
+            str2double(get(c1,'String')) + 0.001*str2double(get(c1d,'String')),...
+            str2double(get(c2,'String')) + 0.001*str2double(get(c2d,'String')) );
+        
+        %         reshape(str2double({ValueGroup.String}'),4,2)
+%         send_comm(Value)
     end
-    function bselection(source,callbackdata)
-        if strcmp(callbackdata.NewValue.String,'NAV1')
-            set(plus_n1_b,'Visible','on');set(moins_n1_b,'Visible','on')
-            set(plus_n1d_b,'Visible','on');set(moins_n1d_b,'Visible','on')
-            set(plus_n2_b,'Visible','off');set(moins_n2_b,'Visible','off')
-            set(plus_n2d_b,'Visible','off');set(moins_n2d_b,'Visible','off')
-            set(plus_c1_b,'Visible','off');set(moins_c1_b,'Visible','off')
-            set(plus_c1d_b,'Visible','off');set(moins_c1d_b,'Visible','off')
-            set(plus_c2_b,'Visible','off');set(moins_c2_b,'Visible','off')
-            set(plus_c2d_b,'Visible','off');set(moins_c2d_b,'Visible','off')
-        end
-        if strcmp(callbackdata.NewValue.String,'NAV2')
-            set(plus_n1_b,'Visible','off');set(moins_n1_b,'Visible','off')
-            set(plus_n1d_b,'Visible','off');set(moins_n1d_b,'Visible','off')
-            set(plus_n2_b,'Visible','on');set(moins_n2_b,'Visible','on')
-            set(plus_n2d_b,'Visible','on');set(moins_n2d_b,'Visible','on')
-            set(plus_c1_b,'Visible','off');set(moins_c1_b,'Visible','off')
-            set(plus_c1d_b,'Visible','off');set(moins_c1d_b,'Visible','off')
-            set(plus_c2_b,'Visible','off');set(moins_c2_b,'Visible','off')
-            set(plus_c2d_b,'Visible','off');set(moins_c2d_b,'Visible','off')
-        end
-        if strcmp(callbackdata.NewValue.String,'COM1')
-            set(plus_n1_b,'Visible','off');set(moins_n1_b,'Visible','off')
-            set(plus_n1d_b,'Visible','off');set(moins_n1d_b,'Visible','off')
-            set(plus_n2_b,'Visible','off');set(moins_n2_b,'Visible','off')
-            set(plus_n2d_b,'Visible','off');set(moins_n2d_b,'Visible','off')
-            set(plus_c1_b,'Visible','on');set(moins_c1_b,'Visible','on')
-            set(plus_c1d_b,'Visible','on');set(moins_c1d_b,'Visible','on')
-            set(plus_c2_b,'Visible','off');set(moins_c2_b,'Visible','off')
-            set(plus_c2d_b,'Visible','off');set(moins_c2d_b,'Visible','off')
-        end
-        if strcmp(callbackdata.NewValue.String,'COM2')
-            set(plus_n1_b,'Visible','off');set(moins_n1_b,'Visible','off')
-            set(plus_n1d_b,'Visible','off');set(moins_n1d_b,'Visible','off')
-            set(plus_n2_b,'Visible','off');set(moins_n2_b,'Visible','off')
-            set(plus_n2d_b,'Visible','off');set(moins_n2d_b,'Visible','off')
-            set(plus_c1_b,'Visible','off');set(moins_c1_b,'Visible','off')
-            set(plus_c1d_b,'Visible','off');set(moins_c1d_b,'Visible','off')
-            set(plus_c2_b,'Visible','on');set(moins_c2_b,'Visible','on')
-            set(plus_c2d_b,'Visible','on');set(moins_c2d_b,'Visible','on')
+    function bselection(~,~)
+        set(bs.SelectedObject.UserData,'visible','on')
+        
+        DeselectedButton = find([r.Value]==0);
+        set(r(DeselectedButton(1)).UserData,'visible','off')
+        set(r(DeselectedButton(2)).UserData,'visible','off')
+        set(r(DeselectedButton(3)).UserData,'visible','off')
+    end
+
+% PLUS - MINUS one Function
+    function plus(source,~)
+        Val = str2double(get(source,'Tag'));
+        Ligne   = floor(Val/10);
+        Collone = Val - Ligne*10;
+        
+        switch  Collone% On recupere la 1ere valeurs
+            case 1
+                value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
+                value = min(max(value+1,100),150);
+                set(ValueGroup(Ligne,Collone), 'String', num2str(value));
+            case 2
+                value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
+                value = min(max(value+25,100),975);
+                set(ValueGroup(Ligne,Collone), 'String', num2str(value));
         end
         
     end
-% PLUS NAV
-    function plus_n1(source,callbackdata)
-        value=str2num(get(n1, 'String'));
-        set(n1, 'String', num2str(value+1));
-    end
-    function plus_n1d(source,callbackdata)
-        value=str2num(get(n1d, 'String'));
-        set(n1d, 'String', num2str(value+25));
-    end
-    function plus_n2(source,callbackdata)
-        value=str2num(get(n2, 'String'));
-        set(n2, 'String', num2str(value+1));
-    end
-    function plus_n2d(source,callbackdata)
-        value=str2num(get(n2d, 'String'));
-        set(n2d, 'String', num2str(value+25));
-    end
-% PLUS COMM
-    function plus_c1(source,callbackdata)
-        value=str2num(get(c1, 'String'));
-        set(c1, 'String', num2str(value+1));
-    end
-    function plus_c1d(source,callbackdata)
-        value=str2num(get(c1d, 'String'));
-        set(c1d, 'String', num2str(value+25));
-    end
-    function plus_c2(source,callbackdata)
-        value=str2num(get(c2, 'String'));
-        set(c2, 'String', num2str(value+1));
-    end
-    function plus_c2d(source,callbackdata)
-        value=str2num(get(c2d, 'String'));
-        set(c2d, 'String', num2str(value+25));
-    end
-% MOINS NAV
-    function moins_n1(source,callbackdata)
-        value=str2num(get(n1, 'String'));
-        set(n1, 'String', num2str(value-1));
-    end
-    function moins_n1d(source,callbackdata)
-        value=str2num(get(n1d, 'String'));
-        set(n1d, 'String', num2str(value-25));
-    end
-    function moins_n2(source,callbackdata)
-        value=str2num(get(n2, 'String'));
-        set(n2, 'String', num2str(value-1));
-    end
-    function moins_n2d(source,callbackdata)
-        value=str2num(get(n2d, 'String'));
-        set(n2d, 'String', num2str(value-25));
-    end
-% MOINS COMM
-    function moins_c1(source,callbackdata)
-        value=str2num(get(c1, 'String'));
-        set(c1, 'String', num2str(value-1));
-    end
-    function moins_c1d(source,callbackdata)
-        value=str2num(get(c1d, 'String'));
-        set(c1d, 'String', num2str(value-25));
-    end
-    function moins_c2(source,callbackdata)
-        value=str2num(get(c2, 'String'));
-        set(c2, 'String', num2str(value-1));
-    end
-    function moins_c2d(source,callbackdata)
-        value=str2num(get(c2d, 'String'));
-        set(c2d, 'String', num2str(value-25));
+    function moins(source,~)
+        Val = str2double(get(source,'Tag'));
+        Ligne   = floor(Val/10);
+        Collone = Val - Ligne*10;
+        
+        switch  Collone% On recupere la 1ere valeurs
+            case 1
+                value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
+                value = min(max(value-1,100),150);
+                set(ValueGroup(Ligne,Collone), 'String', num2str(value));
+            case 2
+                value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
+                value = min(max(value-25,100),975);
+                set(ValueGroup(Ligne,Collone), 'String', num2str(value));
+        end
     end
 
 end

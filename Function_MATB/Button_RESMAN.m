@@ -7,7 +7,6 @@ function pmp=Button_RESMAN(f)
 LargeurFig=1100;
 HauteurFig=1450;
 
-
 pmp(7) = uicontrol(f,'Style','pushbutton','String','> 7 ',...
     'Position',[LargeurFig*0.62 HauteurFig*0.28 70 30],'Fontsize',13,'BackgroundColor',[0.94 0.94 0.94],'Callback',{@changeState});
 pmp(8) = uicontrol(f,'Style','pushbutton','String','< 8',...
@@ -26,7 +25,7 @@ pmp(6) = uicontrol(f,'Style','pushbutton','String','< 6',...
     'Position',[LargeurFig*0.76 HauteurFig*0.07 70 30],'Fontsize',13,'BackgroundColor',[0.94 0.94 0.94],'Callback',{@changeState});
 
 
-function changeState(source,event)
+function changeState(source,~)
 % StatePMP(NumPmp) 
 %     set(source,'backgroundColor',[0 1 0]); StatePMP(NumPmp)=1
 % if StatePMP(NumPmp)==0
