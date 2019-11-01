@@ -23,8 +23,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     t_Max = MATB_DATA.ScenarioDuration(N_Scenar);
 
     %--------------- EVENT SYSMON -------------------%
-
-    N_Ev=Tot_Ev(N_Scenar,1); % Nombre d'alarmes (30 dans le script de Kévin)
+    N_Ev=Tot_Ev(N_Scenar,1); % Nombre d'alarmes (30 dans le script de Kevin)
     Ev=zeros(N_Ev,19);
         
 %     t=round(linspace(5,280,N_Ev))+randi([-15 15],1,N_Ev); % De 5 à 280 lineairement espacé + un jitter de 15sec max
@@ -91,7 +90,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
         %--------------- EVENT RESMAN -------------------%
     if MATB_DATA.ScenarioType(N_Scenar,1)==0  % Facile
         
-        N_Panne=Tot_Ev(N_Scenar,4); % (8 dans le script de Kévin)
+        N_Panne=Tot_Ev(N_Scenar,4); % (8 dans le script de Kevin)
         MATB_DATA.RESMAN.FluxPompe{N_Scenar}=[70 60 70 60 60 60 40 40 80 80]/3; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B Attention les deux dernières valeurs correspondent aux deux reservoirs (attention les valeurs doivent etre sup ou inf autres)
         
         Ev=zeros(N_Panne*2,19);

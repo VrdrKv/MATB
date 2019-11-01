@@ -120,15 +120,13 @@ axis off
 
 %% RESMAN
 PR=abs(2500-MATB_DATA.RESMAN.DATA{MATB_DATA.ScenarioNumber});
-% subplot(223)
 subplot('Position',Posi(3,:))
-% PRfig=figure('position',[993    80   588   366],'menubar','none','numbertitle','off');
   ColorBar=[0 0.4470 0.7410];
 ColorBar2=[116/256 208/256 241/256];
   LW=1; FontSz=13;
  
-%% GAUCHE
-  dec=0; ht=1;
+%---GAUCHE
+dec=0; ht=1;
 % Marqueurs Remplissage sur A et B
 fill([2 2 2.5 2.5]+dec,[15 17 17 15]+ht,ColorBar2,'linestyle','none'); hold on
 plot([2 2.5]+dec,[16 16]+ht,'Color',ColorBar,'linewidth',LW)
@@ -147,8 +145,8 @@ plot([12.5 12.5 17.5 17.5 12.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewi
 h_NIV(1)=fill([2.6 2.6 7.4 7.4]+dec,[12.1 16 16 12.1]+ht,[0 1 0],'linestyle','none');
 h_NIV(2)=fill(10+[2.6 2.6 7.4 7.4]+dec,[12.1 14 14 12.1]+ht,[1 0.6 0],'linestyle','none');
 
-  %% DROITE = gauche + dec en x
-  dec=23;
+%--- DROITE = gauche + dec en x
+dec=23;
 % Marqueurs Remplissage sur A et B
 fill([2 2 2.5 2.5]+dec,[15 17 17 15]+ht,ColorBar2,'linestyle','none'); hold on
 plot([2 2.5]+dec,[16 16]+ht,'Color',ColorBar,'linewidth',LW)
@@ -197,7 +195,6 @@ else if mean(PR(:)) >= 1000
 
 end
 
-
 PerfResTot=min(PerfResTot,1500);
 ht=8.5; lg=2.5;
 plot([5 15]+lg,[0 0]+ht,'k','linewidth',3); hold on
@@ -209,7 +206,6 @@ ylim([0 30])
 xlim([0 45])
 
 axis off
-
 
 %% COMM
 Data=MATB_DATA.COMM.DATA{MATB_DATA.ScenarioNumber};

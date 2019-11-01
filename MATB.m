@@ -9,14 +9,12 @@
 % --> Psychtoolbox : for Time, Keyboard and Sound management 
 % You migh need :
 % --> labstreaminglayer toolbox : to stream all those data :)
-%% -----------------------TUTORIAL & TRAINING------------------------------
 
 close all; clc; clear; fclose('all');
 addpath('Function_MATB')
 rng('shuffle')
 
 global MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA
-% SALE : MATB_DATA est parfois global parfois passer en argument
 MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 
 Config
@@ -34,10 +32,9 @@ EventManuel % Program MATB events manually
 
 ListenChar(-1) % Stop taking keyboard input into matlab console
 
-% str1 = compose(str1);
-pop_waiter(["Bonjour,",... 
-    "Bienvenue dans cette expérimentation MATB!", ...
-    "(Appuyez sur 'ENTREE' pour commencer)"],1); 
+% pop_waiter(["Bonjour,",... 
+%     "Bienvenue dans cette expérimentation MATB!", ...
+%     "(Appuyez sur 'ENTREE' pour commencer)"],1); 
 
 %-------- TUTORIAL  -------------------------------------------------------
 if MATB_DATA.Param.Tutorial
@@ -60,8 +57,8 @@ end
 
 %% ------------------------ MAIN TASK--------------------------------------
 
-pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...
-    "(Appuyez sur 'ENTREE' pour commencer)"],1);
+% pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...
+%     "(Appuyez sur 'ENTREE' pour commencer)"],1);
 
 % MATB_DATA.ScenarioType % Diplaying just to be sure :)
 % [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1),MATB_DATA.ScenarioNumber);
@@ -84,17 +81,18 @@ for i=1:size(MATB_DATA.ScenarioType,1)
 %     [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1),MATB_DATA.ScenarioNumber);
 %     pop_waiter(['Look at the Instructions for Scenario ' num2str(MATB_DATA.ScenarioNumber-4) ' and hit Enter to START'],1);
 end
-
 % close(pop)
-pop_waiter(["Enregistrement des données",...
-    "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
-SauvegardeDATA
-pop_waiter(["Veuillez à présent compléter un dernier questionnaire",...
-    "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
-% slidervalues
-% pop_waiter(["Thank you so much!", ...
-%    "Que Dieu vous garde!"],1);
 
+% pop_waiter(["Enregistrement des données",...
+%     "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
+% SauvegardeDATA
+% pop_waiter(["Veuillez à présent compléter un dernier questionnaire",...
+%     "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
+% slidervalues
+% pop_waiter(["Thank you so much!",1);
+% pop_waiter(["Que Dieu vous garde!"],1);
+
+DeleteHandle
 ListenChar(0); 
 
 

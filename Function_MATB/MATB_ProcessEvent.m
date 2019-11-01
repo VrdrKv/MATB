@@ -1,5 +1,3 @@
-
-% function  [faulty_al,faulty_pmp,pmp,LastUpdate_EVENT]=MATB_ProcessEvent(faulty_al,faulty_pmp,pmp,pahandle,lE,IdxCOMM,ListFichierAudio)
 function MATB_ProcessEvent(lE)
 global MATB_DATA
 if any(lE(1:6)~=0) % Si jamais y'a du SYSMON

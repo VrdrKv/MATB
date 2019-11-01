@@ -1,13 +1,12 @@
-% function [LastUpdate_RESMAN,pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP]=Update_RESMAN(pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP)
 function Update_RESMAN
 global MATB_DATA
 ColorBar=[0 0.4470 0.7410];
 colorPMP=cell2mat(get(MATB_DATA.RESMAN.handlePompe,'backgroundcolor')); % Recherche l'état des pompes en regardant la couleur du boutons
 set(MATB_DATA.RESMAN.handlePompe(find(MATB_DATA.RESMAN.EtatPompe)),'backgroundcolor',[1 0 0]); % Permet de prendre en compte les MouseClick
 
-StatePMP(colorPMP(:,1)==0.94)=0; % Eteint
-StatePMP(colorPMP(:,1)==0)=1; % Allumé
-StatePMP(colorPMP(:,1)==1)=0; % Panne (pas de flux)
+StatePMP(colorPMP(:,1)==0.94)=0;    % OFF
+StatePMP(colorPMP(:,1)==0)=1;       % ON
+StatePMP(colorPMP(:,1)==1)=0;       % FAILED (OFF)
 
 % Extinction des pompes si reservoirs d'arriver pleins ou départ vide
 if MATB_DATA.RESMAN.NiveauxPompe(1) == 0

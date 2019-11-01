@@ -8,8 +8,8 @@ if MATB_DATA.GazepointEyeTracker
 
         %------- SocketConnection
         % From gazepoint Control double clivk on server (Down)
-        ip = '10.161.8.134';  % Control Adress
-        portnum{1} = 4242; % Control Port
+        ip = MATB_DATA.Param.EyeTracker.IP;  % Control Adress
+        portnum{1} = MATB_DATA.Param.EyeTracker.PortNum{1}; % Control Port
         portnum{2} = 4242;
         
         for i=1%:2 % Pour 2 eye tracker potentiellement

@@ -1,4 +1,5 @@
-function [MATB_DATA]=Button_SYSMON(MATB_DATA)
+function Button_SYSMON
+global MATB_DATA
 f=MATB_DATA.MainFigure;
 % FigPos=get(f,'position');
 % LargeurFig=FigPos(3);

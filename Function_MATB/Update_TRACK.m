@@ -7,32 +7,26 @@ x=h(2).XData; y=h(2).YData; % On recupère la position actuel
 MATB_DATA.TRACK.ThetaForce=MATB_DATA.TRACK.ThetaForce+(rand-0.5);
 
 if ~isempty(MATB_DATA.TRACK.JoystickID)
-    if MATB_DATA.TRACK.Difficulty{MATB_DATA.ScenarioNumber}==1    % if Difficile
-        ForceDuBruit = 1.10; % Si 1 elle est égale à l'input joystick si supérieur le bruit est plus fort
-        Vitesse = 0.2;
+        % Difficulty = MATB_DATA.TRACK.Difficulty{MATB_DATA.ScenarioNumber} + 1; % 0 = easy 1 = hard;
+        
+        ForceDuBruit = MATB_DATA.Param.StrengthTrackNoise(MATB_DATA.TRACK.Difficulty{MATB_DATA.ScenarioNumber} + 1);
+        Vitesse = MATB_DATA.Param.TrackSpeed(MATB_DATA.TRACK.Difficulty{MATB_DATA.ScenarioNumber} + 1);
         
         % MATB_DATA.RESMAN.HorsZone est un boolen qui "dit" si les
-        % reservoirs sont Hors Zone. La 1ere lighne rajoute du bruit si
-        % hors zone
-        %         [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit + any(MATB_DATA.RESMAN.HorsZone)*0.05+0.01*randi(10,1) ); %
-        [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit); % 
+        % reservoirs sont Hors Zone. La 1ere lighne rajoute du bruit si hors zone
+        if MATB_DATA.Param.TrackIfLevel
+            [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit + any(MATB_DATA.RESMAN.HorsZone)*0.05 +0.01*randi(10,1) ); %
+        else
+            [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit); %
+        end
         
-        x_R=x+Vitesse*mean([axis(MATB_DATA.TRACK.JoystickID, 1) X]);
+        x_R=x+Vitesse*mean([ axis(MATB_DATA.TRACK.JoystickID, 1) X]);
         y_R=y+Vitesse*mean([-axis(MATB_DATA.TRACK.JoystickID, 2) Y]);
         
-    else        
-        ForceDuBruit = 0.9; % Si 1 elle est égale à l'input joystick si supérieur le bruit est plus fort
-        Vitesse = 0.07;
-        
-        [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit + any(MATB_DATA.RESMAN.HorsZone)*0.1 );
-        
-        x_R=x+Vitesse*mean([axis(MATB_DATA.TRACK.JoystickID, 1) X]);
-        y_R=y+Vitesse*mean([-axis(MATB_DATA.TRACK.JoystickID, 2) Y]);
-    end
+        x=max([min([x_R 10]) -10]); y=max([min([y_R 10]) -10]); % Garder dans les limites -10 10
 else 
-    x_R=0; y_R=0;
+    x=0; y=0;
 end
-x=max([min([x_R 10]) -10]); y=max([min([y_R 10]) -10]); % Garder dans les limites -10 10
 circle(x,y,h); % Update circle position
 
 % Change Track color if out of box
@@ -59,7 +53,7 @@ if  (x > 4 || y > 4 || x < -4 || y < -4)% && ~all(get(MATB_DATA.TRACK.handleCibl
         set(MATB_DATA.RESMAN.handlePompe(StatePMP_k ~= 2),'backgroundColor',[0.94 0.94 0.94])
     end
     
-    %     send_log('TRACKING','SORTIE CADRE')
+    %     send_log('TRACKING','SORTIE CADRE') % En continu si tel quel
 end
 
 

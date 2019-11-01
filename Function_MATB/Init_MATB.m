@@ -1,6 +1,6 @@
 function Init_MATB
 global MATB_DATA
-%--- Generate full screen black window behind
+%--------- Generate full screen black window behind
 % figure('position',get(0,'Screensize')+[-1 -1 1 1]*10,'menubar','none','numbertitle','off','color','k');
 % ScrSize=get(0,'ScreenSize');
 % f=figure('position',[(ScrSize(3)/2)-(ScrSize(4)/2) 0 ScrSize(4) (ScrSize(3)/2)+(ScrSize(4)/2)],...,'windowstate','fullscreen'
@@ -8,43 +8,23 @@ global MATB_DATA
 % % set(gcf,'position',[425         20        1100        1040]);
 figure('windowstate','fullscreen','color','k','menubar','none','CloseRequestFcn',@CloseFigEmpty)
 
-%--- MATB main figure -------
+%--------- MATB main figure -------
 MATB_DATA.MainFigurePosition=[ 428 32   1100  1020];
 f=figure('position',MATB_DATA.MainFigurePosition,...
-    'menubar','none','numbertitle','off','resize','off','CloseRequestFcn',@CloseFigEmpty);
+    'menubar','none','numbertitle','off','resize','off',...
+    'visible','off','CloseRequestFcn',@CloseFigEmpty);
 % f=figure('position',[425         20        1100        1020],...
 %     'menubar','none','numbertitle','off','resize','off');
 MATB_DATA.MainFigure=f;
-f.Color=[1 1 1];
+% f.Color=[1 1 1];
+
+set(f, 'Renderer','painters'); % Note: this is a figure property
 
 %--------- Initialize all the Subtasks 
-subplot('Position',[0.48,0.53,0.4,0.4])
-Init_TRACK
+Init_TRACK()
+Init_SYSMON()
+Init_RESMAN()
+Init_COMM()
 
-subplot('Position',[0.05,0.5+0.05,0.30,0.4])
-Init_SYSMON
-
-subplot('Position',[0.35,0.05,0.6,0.4])
-Init_RESMAN
-
-subplot('Position',[0.17,0.4,0.05,0.05])
-Init_COMM
-
-InitializePsychSound
-if IsLinux
-    pahandle = PsychPortAudio('Open');
-else
-    pahandle = PsychPortAudio('Open',[],[],0,[],2);
-end
-
-% [y,Fs] = audioread('Audio/OWN_TESTFILE.wav');
-% y2=resample(y,44100,Fs);
-% PsychPortAudio('FillBuffer', pahandle, [y2' ; y2']);
-% PsychPortAudio('Start', pahandle,1,0,1);
-
-% PsychPortAudio('FillBuffer', pahandle, [MATB_DATA.COMM.ListFichierAudio{1}' ; MATB_DATA.COMM.ListFichierAudio{1}']);
-% PsychPortAudio('Start', pahandle,1,0,1);
-
-MATB_DATA.handlePortAudio=pahandle;
-drawnow
+drawnow; set(f,'visible','on'); 
 KbName('UnifyKeyNames');

@@ -1,6 +1,8 @@
-% function [pmp,h_NIV,h_tNiv,faulty_pmp,NIV,FRP]=Init_RESMAN(f)
 function Init_RESMAN
 global MATB_DATA
+
+subplot('Position',[0.35,0.05,0.6,0.4])
+% set(gca, 'DrawMode','fast'); % 'normal' is the default axes value
 
 ColorBar=[0 0.4470 0.7410];
 ColorBar2=[116/256 208/256 241/256];
@@ -72,6 +74,13 @@ xlim([0 20]); ylim([0 20])
 grid on
 axis off
 
+if MATB_DATA.Param.Retro
+    set( get(gca,'children'), 'linewidth', 5)
+    title('FUEL MANAGEMENT','fontsize',30,'color',ColorBar,'FontSmoothing','off');
+else
+    title('FUEL MANAGEMENT','fontsize',21,'color',Colorbar)
+end
+
 % FRP=[80 60 80 60 60 60 40 40 80 80]/6; % FlowRatesPompes Pompe 1 à 8 plus Vidage A et B
 % MATB_DATA.RESMAN.FluxPompe=FRP;
 MATB_DATA.RESMAN.handlePompe=pmp;
@@ -81,4 +90,3 @@ MATB_DATA.RESMAN.EtatPompe=faulty_pmp;
 MATB_DATA.RESMAN.NiveauxPompe=NIV;
 MATB_DATA.RESMAN.HorsZone=[0 0];
     
-title('FUEL MANAGEMENT','fontsize',21,'color',ColorBar)

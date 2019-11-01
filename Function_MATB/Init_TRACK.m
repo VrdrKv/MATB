@@ -2,6 +2,9 @@
 function Init_TRACK
 global MATB_DATA
 
+subplot('Position',[0.48,0.53,0.4,0.4]); 
+% set(gca, 'DrawMode','fast'); % 'normal' is the default axes value
+
 ColorBar=[0 0.4470 0.7410];
 % Grande Transverse
 plot(-10:10,zeros(21,1),'color',ColorBar); hold on
@@ -55,7 +58,6 @@ h_l3=plot([x+1.5 x+0.5],[y y],'k','linewidth',3);
 h_l4=plot([x-1.5 x-0.5],[y y],'k','linewidth',3);
 h_cible=[h_cr,h_cx,h_l1,h_l2,h_l3,h_l4];
 
-title('TRACKING','fontsize',21,'color',ColorBar)
 
 % Create joystick variable
 ID = 1;
@@ -64,6 +66,13 @@ try
 catch
     warning('Problem Loading Joystick, be sure 1) its connected and ... 2) that you have the Simulink 3D Animation Toolbox');
     joy=[];
+end
+
+if MATB_DATA.Param.Retro
+    set( get(gca,'children'), 'linewidth', 5)
+    title('TRACKING','fontsize',30,'color',ColorBar,'FontSmoothing','off');
+else
+    title('TRACKING','fontsize',21,'color',ColorBar);
 end
 
 MATB_DATA.TRACK.JoystickID=joy;

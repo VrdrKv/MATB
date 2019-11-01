@@ -27,8 +27,10 @@ MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2
 MATB_DATA.Param.Retro = 0;
 %------- TODO
 % IP Eye Tracker
-MATB_DATA.Param.EyeTracker.IP = '10.161.8.134';     % Control Adress
-MATB_DATA.Param.EyeTracker.PortNum{1} = 4242;       % Control Port
+
+MATB_DATA.Param.EyeTrackerIP = '10.161.8.134';  % Control Adress
+MATB_DATA.Param.EyeTrackerPortNu = 4242; % Control Port
+        portnum{2} = 4242;
 
 % Gestion Event avec PARAM
 % Param de Flux

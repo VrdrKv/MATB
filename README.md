@@ -24,5 +24,8 @@ Send real event in LOG not VECTOR
 Modify Tutorial GLOBAL  
 
 Config
-Jostick Buttons
+Joystick Buttons  
+KeyPressFunction
+
+
 
