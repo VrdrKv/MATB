@@ -78,7 +78,7 @@ if MATB_DATA.Param.Retro
     set( get(gca,'children'), 'linewidth', 5)
     title('FUEL MANAGEMENT','fontsize',30,'color',ColorBar,'FontSmoothing','off');
 else
-    title('FUEL MANAGEMENT','fontsize',21,'color',Colorbar)
+    title('FUEL MANAGEMENT','fontsize',21,'color',ColorBar)
 end
 
 % FRP=[80 60 80 60 60 60 40 40 80 80]/6; % FlowRatesPompes Pompe 1 à 8 plus Vidage A et B

@@ -17,7 +17,7 @@ if MATB_DATA.Param.Retro
     set( get(gca,'children'), 'linewidth', 5)
     title('COMMUNICATIONS','fontsize',30,'color',ColorBar,'FontSmoothing','off');
 else
-    title('COMMUNICATIONS','fontsize',21,'color',Colorbar)
+    title('COMMUNICATIONS','fontsize',21,'color',ColorBar)
 end
 axis off
 

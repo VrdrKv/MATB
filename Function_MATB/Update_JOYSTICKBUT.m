@@ -5,10 +5,17 @@ global MATB_DATA
 ButPasse = {'NAV1' [3]; 'NAV2' [2]; 'COM1' [1]; 'COM2' [4]}; %!!!Rangé par ordre décroissant: le dernier créé est le premier dans la liste
 DigIdx = {'NAV1' 9 8 24 27; 'NAV2' 7 6 20 23; 'COM1' 5 4 16 19; 'COM2' 3 2 12 15};
 
-ButonAppuye = find(button(MATB_DATA.TRACK.JoystickID));
 
+
+% Utilise les Handle Crée dplutot que les children
 % mod(9,4) % 
+% MATB_DATA.COMM.HandleButtonGroup.SelectedObject = Button select en cours
+%     HandleButtonGroup: [1×1 ButtonGroup]
+%     HandleRadioButton: [1×4 UIControl]
+%       HandlePlusMinus: {1×4 cell}
+%       HandleTextValue: [4×2 UIControl]
 
+ButonAppuye = find(button(MATB_DATA.TRACK.JoystickID));
 switch ButonAppuye(1) % On prend le premier sinon ca fait une erreur quand on appui sur 2 en eme temps
 	case 1 	% CHANGE SELECTION
 		set(MATB_DATA.MainFigure.Children(12:27), 'Visible','off');

@@ -177,6 +177,7 @@ apply_b = uicontrol(f,'Style','pushbutton','String','APPLY','Fontsize',19,...
         
         %         reshape(str2double({ValueGroup.String}'),4,2)
 %         send_comm(Value)
+
     end
     function bselection(~,~)
         %         set(bs.SelectedObject.UserData,'visible','on') Equivalent

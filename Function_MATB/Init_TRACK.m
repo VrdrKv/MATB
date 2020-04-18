@@ -52,10 +52,10 @@ xunit = r * cos(th) + x;
 yunit = r * sin(th) + y;
 h_cr=plot(xunit, yunit,'k','linewidth',3);
 h_cx=plot(x,y,'ok','linewidth',1,'markerfacecolor','k');
-h_l1=plot([x x],[y+1.5 y+0.5],'k','linewidth',3);
-h_l2=plot([x x],[y-1.5 y-0.5],'k','linewidth',3);
-h_l3=plot([x+1.5 x+0.5],[y y],'k','linewidth',3);
-h_l4=plot([x-1.5 x-0.5],[y y],'k','linewidth',3);
+h_l1=plot([x x],[y+r y+r/3],'k','linewidth',3);
+h_l2=plot([x x],[y-r y-r/3],'k','linewidth',3);
+h_l3=plot([x+r x+r/3],[y y],'k','linewidth',3);
+h_l4=plot([x-r x-r/3],[y y],'k','linewidth',3);
 h_cible=[h_cr,h_cx,h_l1,h_l2,h_l3,h_l4];
 
 
