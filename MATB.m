@@ -56,7 +56,6 @@ end
 %--------------------------------------------------------------------------
 
 %% ------------------------ MAIN TASK--------------------------------------
-
 % pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...
 %     "(Appuyez sur 'ENTREE' pour commencer)"],1);
 
@@ -94,7 +93,6 @@ end
 
 DeleteHandle
 ListenChar(0); 
-
 
 close all
 diary off
