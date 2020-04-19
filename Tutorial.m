@@ -12,7 +12,6 @@ MATB_DATA.LastUpdate.TRACK=Start;
 MATB_DATA.LastUpdate.EVENT=Start;
 MATB_DATA.LastUpdate.KB=Start;
 MATB_DATA.LastUpdate.LOG=Start;
-MATB_DATA.LastUpdate.JS=Start;
 
 MATB_DATA.TRACK.DATA{MATB_DATA.ScenarioNumber}=[];
 MATB_DATA.RESMAN.DATA{MATB_DATA.ScenarioNumber}=[];
@@ -23,19 +22,18 @@ MATB_DATA.KeyboardAction{MATB_DATA.ScenarioNumber}=[];
 %-------------------------------------------------------
 %                   SYSMON
 %-------------------------------------------------------
-
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'TRAINING SYSMON');
 
 if MATB_DATA.LSL_Streaming
     outlet.push_sample({0,'TRAINING SYSMON',''});
 end
 
-pop_waiter('Commençons par la tache de MONITORING',1)
+pop_waiter('Let s try SYSMON Player 1',1)
 pop=dialog('position',[1035  519  605 200]);
 txt = uicontrol('Parent',pop,...
     'Style','text',...
     'Position', [10 -100 585 250],...
-    'String','Ici tout est normal, les jauges oscillent autour du milieu',...
+    'String','For now everything is normal, they oscillate around the middle',...
     'Fontsize',18);
 
 a=[ones(10,1) ; -ones(10,1)];
@@ -44,44 +42,39 @@ Ev=[randi(35,20,1)+15 randi(6,20,1) a(randperm(20))];
 Start = GetSecs;
 while true
     t=GetSecs;
-    
+
     % SET EVENTS
     if round(t-Start,1)==10 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         close(pop)
-        fClav=figure('menubar','non','numbertitle','off','position',[900 97 1000 420]);
-        imagesc(imread('Function_MATB\clavier.png'))
-        set(gca,'position',[ 0 0  1 1]); axis off
-        
-        pop=dialog('position',[900  519  1000 300]); %[1035  519  605 200])
+        pop=dialog('position',[1035  519  605 200]);
         txt = uicontrol('Parent',pop,...
             'Style','text',...
-            'Position', [50 -100 900 300],... %[-100 -100 850 250]
-            'String','Essayez maintenant de répondre aux alarmes. Lorsque le niveau d`une jauge s`eloigne du milieu, appuyez sur le numéro correspondant à la jauge (bouton 1 à 4, première ligne du clavier). Lorsque F5 cesse d`etre vert, appuyez sur F5. Enfin, lorsque F6 devient rouge, appuyez sur la touche F6. ',...
+            'Position', [-100 -100 850 250],...
+            'String','Try to respond to alarms now',...
             'Fontsize',18);
-        
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    
-    if any(Ev(:,1)==round(t-Start,1)) &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
+
+    if any(Ev(:,1)==round(t-Start,1))&&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         N_Ev=find(Ev(:,1)==round(t-Start,1));
-        
+
         MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),1)=1;
         MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),2)=Ev(N_Ev,3);
         MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),3)=GetSecs;
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    
+
     % UPDATE ALL TASKS
     if t-MATB_DATA.LastUpdate.KB >= 0.0
         [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
     end
-    
+
     if t-MATB_DATA.LastUpdate.SYSMON >= 0.2
         [MATB_DATA]=Update_SYSMON(MATB_DATA);
     end
-    
+
     if t-Start > 60
-        close(pop); close(fClav);
+        close(pop)
         break
     end
     drawnow
@@ -91,32 +84,31 @@ end
 %-------------------------------------------------------
 %                   TRACK
 %-------------------------------------------------------
-
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'TRAINING TRACK');
 if MATB_DATA.LSL_Streaming
     outlet.push_sample({0,'TRAINING TRACK',''});
 end
-
-pop_waiter('Passons maintenant à la tache de TRACKING',1)
+    
+pop_waiter('Let s try TRACK Player 1',1)
 pop=dialog('position',[240 623 560 259]);
 txt = uicontrol('Parent',pop,...
     'Style','text',...
-    'Position', [-150 -100 850 250],... %[-100 -100 850 250]
-    'String','Maintenez le cercle dans le carré central',...
+    'Position', [-100 -100 850 250],...
+    'String','Keep the Circle in the middle',...
     'Fontsize',18);
 MATB_DATA.TRACK.Difficulty{1}=0;
 Start = GetSecs;
 while true
     t=GetSecs;
-    
+
     % SET EVENTS
     if round(t-Start,1)==20 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         close(pop)
         pop=dialog('position',[240 623 560 259]);
         txt = uicontrol('Parent',pop,...
             'Style','text',...
-            'Position', [-150 -100 850 250],...
-            'String','Cela peut aussi devenir plus dur',...
+            'Position', [-100 -100 850 250],...
+            'String','It is going to be harder',...
             'Fontsize',18);
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
@@ -124,61 +116,52 @@ while true
         MATB_DATA.TRACK.Difficulty{1}=1;
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    
+
     % UPDATE ALL TASKS
     if t-MATB_DATA.LastUpdate.KB >= 0.0
         [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
     end
-    
+
     if t-MATB_DATA.LastUpdate.TRACK >= 0.02
         [MATB_DATA]=Update_TRACK(MATB_DATA);
     end
-    
+
     if t-Start > 60
         close(pop)
         break
     end
     drawnow
 end
-% %pop_waiter('Don`t forget when the CIRCLE is RED, all pumps are OFF !',1,[240 623 560 259],[0 -100 560 250])
- 
+pop_waiter('Don`t forget when the CIRCLE is RED, all pumps are OFF !',1,[240 623 560 259],[0 -100 560 250])
 
 %-------------------------------------------------------
-%                  RESMAN
+%                   RESMAN
 %-------------------------------------------------------
-
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'TRAINING RESMAN');
+outlet.push_sample({0,'TRAINING RESMAN',''});
 
-if MATB_DATA.LSL_Streaming %%%%%%%%%ajouté par Alex car impossible de lancer la tache sans cela
-    outlet.push_sample({0,'TRAINING RESMAN',''});
-end%%%%%%%%%%%%%%%%%%%
+pop_waiter('Let s try RESMAN Player 2',1)
 
-pop_waiter('Passons maintenant à la tache de FUEL MANAGEMENT',1)
-
-pop_nowait('L`objectif ici est de garder le niveau des réservoirs A et B autour de 2500 le plus longtemps possible',yesKeys)
-pop_nowait('2500 est symbolisé par une petite ligne bleue tandis que les zones bleues latérales délimitent des niveaux (entre 2000 et 3000) au delà desquels une zone critique est atteinte',yesKeys)
-pop_nowait('Il est important de maintenir le niveau des reservoirs A et B entre 2000 et 3000. Dans le cas contraire, les chiffres indiquant le niveau deviendront orange',yesKeys)
-pop_nowait('Notez bien que lorsqu`une pompe est grise, celle-ci est désactivée. Vert signifie qu`elle est activée et rouge défectueuse.',yesKeys)
-pop_nowait('Quand une pompe est défectueuse, vous ne pourrez pas la réparer, vous devrez simplement attendre que celle-ci redevienne fonctionnelle',yesKeys)
-fClav2=figure('menubar','non','numbertitle','off','position',[30 87 746 316]);
-imagesc(imread('Function_MATB\clavier2.png'))
-set(gca,'position',[ 0 0  1 1]); axis off
-pop_nowait('Pour activer une pompe, pressez le nombre correspondant à la pompe sur la deuxième ligne du clavier, la pompe en question deviendra alors verte',yesKeys)
-close(fClav2);
-pop_nowait('Au début, toutes les pompes seront desactivées (grises) et les réservoirs A et B seront vides, donc n`oubliez pas d`activer les pompes !',yesKeys)
-pop_nowait('Parfait, faisons maintenant un petit essai. Restez proche de 2500, pas plus, pas moins, 2500 !',yesKeys)
+pop_nowait('The objective here is to keep the level in Tank A and B as close to 2500 as possible',yesKeys)
+pop_nowait('2500 is symbolize by a line, and the blue level represents the critical level (between 2000 and 3000)',yesKeys)
+pop_nowait('It is important to keep the level between 2000 and 3000, if not, the level numbers will become orange and the TRACKING task will become really harder',yesKeys)
+pop_nowait('We will start soon. Remember, when a pump is gray its deactivated, green means activated and red means failed.',yesKeys)
+pop_nowait('When a pump is failed, you cannot repair it, you just have to wait until its functional again',yesKeys)
+pop_nowait('To activate a pump, just click on it or press the number on the keyboard one time, it will become green',yesKeys)
+pop_nowait('When we will start, all pumps will be deactivated and Tank A & B will be emptying. So you will have to activate the pumps !',yesKeys)
+pop_nowait('Alright, lets start, stay close to 2500, not less not more, 2500 ! Press ENTER when READY',yesKeys)
 
 Start = GetSecs;
 while true
     t=GetSecs;
-    
+
     % SET EVENTS
     if round(t-Start,1)==20 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         pop1=dialog('position',[  30   403   746   276]);
         txt = uicontrol('Parent',pop1,...
             'Style','text',...
             'Position', [-50 -100 850 250],...
-            'String','Les pompes 1, 2, 3 et 4 sont les plus importantes',...
+            'String','Pumps 1, 2, 3 and 4 are the most important',...
             'Fontsize',18);
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
@@ -187,11 +170,11 @@ while true
         txt = uicontrol('Parent',pop,...
             'Style','text',...
             'Position', [100 -100 600 250],...
-            'String','Les pompes 5 et 6 doivent être activées tout le temps pour maintenir les réservoirs auxiliaires (C et D) pleins. Les réservoirs E et F sont illimités',...
+            'String','Pumps 5 and 6 should be activate anytime to keep auxiliary tank (C and D) full. Tank E and F are unlimited.',...
             'Fontsize',18);
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    
+
     if round(t-Start,1)==40 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         close(pop); close(pop1)
         set(MATB_DATA.RESMAN.handlePompe([1 2]),'backgroundcolor',[1 0 0])
@@ -199,7 +182,7 @@ while true
         txt = uicontrol('Parent',pop1,...
             'Style','text',...
             'Position', [100 -100 600 250],...
-            'String','A présent les pompes 1 et 2 sont défectueuses, elles ne marchent plus. Vous pouvez simplement attendre qu`elles redeviennent fonctionnelles',...
+            'String','Now pumps 1 and 2 are failed, they are not working anymore. You can only wait till their functional',...
             'Fontsize',18);
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
@@ -208,46 +191,45 @@ while true
         txt = uicontrol('Parent',pop,...
             'Style','text',...
             'Position', [100 -100 600 250],...
-            'String','En attendant le retour des pompes 1 et 2, vous pouvez activer la pompe 8 pour maintenir un niveau stable dans le réservoir A',...
+            'String','While waiting for pumps 1 and 2 you can activate pumps 8 to keep level in tank A stable',...
             'Fontsize',18);
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    
+
     % UPDATE ALL TASKS
     if t-MATB_DATA.LastUpdate.KB >= 0.0
         [MATB_DATA]=Update_KEYBOARD(MATB_DATA);
     end
-    
+
     if t-MATB_DATA.LastUpdate.RESMAN >= 1
         [MATB_DATA]=Update_RESMAN(MATB_DATA);
     end
-    
+
     if t-MATB_DATA.LastUpdate.LOG >= 0.5
         send_log('RESMAN',num2str(MATB_DATA.RESMAN.NiveauxPompe));
         MATB_DATA.LastUpdate.LOG=GetSecs;
     end
-    
+
     if t-Start > 60
         close(pop); close(pop1);
         break
     end
     drawnow
 end
- 
+
 % -------------------------------------------------------
 %                   COMM
 % -------------------------------------------------------
-
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'TRAINING COMM');
 if MATB_DATA.LSL_Streaming
     outlet.push_sample({0,'TRAINING COMM',''});
 end
-pop_waiter('Enfin, voyons comment réaliser la tâche de COMMUNICATION',1)
+pop_waiter('Let s try COMM Player 2',1)
 pop=dialog('position',[937   177   560   299]);
 txt = uicontrol('Parent',pop,...
     'Style','text',...
     'Position', [-150 -100 850 250],...
-    'String','Ecoutez...',...
+    'String','Listen...',...
     'Fontsize',18);
 drawnow;
 
@@ -256,7 +238,7 @@ while true
     t=GetSecs;
     
     % SET EVENTS
-    if round(t-Start,1)==1 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
+    if round(t-Start,1)==1 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         TypeOwnOth=1; TypeCOMM=1;
         IdFichier=find(MATB_DATA.COMM.IdxCOMM(:,1)==TypeOwnOth & MATB_DATA.COMM.IdxCOMM(:,2)==TypeCOMM);
         PsychPortAudio('FillBuffer', MATB_DATA.handlePortAudio,...
@@ -265,50 +247,29 @@ while true
         
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    if round(t-Start,1)==3 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
+    if round(t-Start,1)==3 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         f1=figure('position',[10 487 414 121],'menubar','none','numbertitle','off');
-        text(-0.1,1,'NASA 504: Cela vous concerne','fontsize',18);
+        text(0,1,'This is for you NASA 504','fontsize',18);
         set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    if round(t-Start,1)==12 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
+    if round(t-Start,1)==8 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         close(pop)
-        f2=figure('position',[10 346 414 94],'menubar','none','numbertitle','off');
-        text(-0.1,1.3,'Selectionnez NAV1 grâce à la gachette','fontsize',14);
-        text(0.7,0.6,'du joystick','fontsize',14);
+        f2=figure('position',[10 330 414 121],'menubar','none','numbertitle','off');
+        text(0,1,'Select NAV1 and put 110.650','fontsize',18);
         set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
-
-        fjoy1=figure('menubar','non','numbertitle','off','position',[821 780 391 272]);
-        imagesc(imread('Function_MATB\gachette1.png'))
-        set(gca,'position',[ 0 0  1 1]); axis off
-
-        pause(1);
-        
-        f3=figure('position',[10 220 414 94],'menubar','none','numbertitle','off');
-        text(-0.15,1.5,'Changez ensuite les valeurs pour atteindre','fontsize',14);
-        text(-0.13,0.8,'110 et 650 grâce aux boutons sur le haut','fontsize',14);
-        text(0.7,0.1,'du joystick','fontsize',14);
-        set(gca,'xlim',[0 2],'ylim',[0 2]); axis off    
-        
-        fjoy2=figure('menubar','non','numbertitle','off','position',[821 404 286 346]);
-        imagesc(imread('Function_MATB\gachette2.png'))
-        set(gca,'position',[ 0 0  1 1]); axis off
-        
-        pause(1);
-        
-        f4=figure('position',[10 94 414 94],'menubar','none','numbertitle','off');
-        text(-0.15,1.3,'Enfin, validez le tout avec le bouton latéral','fontsize',14);
-        set(gca,'xlim',[0 2],'ylim',[0 2]); axis off   
-        
-        fjoy3=figure('menubar','non','numbertitle','off','position',[821 76 211 297]);
-        imagesc(imread('Function_MATB\gachette3.png'))
-        set(gca,'position',[ 0 0  1 1]); axis off
-        
+        MATB_DATA.LastUpdate.EVENT=GetSecs;
+    end
+    if round(t-Start,1)==12 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
+        f3=figure('position',[10 165 414 121],'menubar','none','numbertitle','off');
+        text(0,1,'then press APPLY','fontsize',18);
+        set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
     
-    if round(t-Start,1)==40 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
-        close(f1, f2, f3, f4, fjoy1, fjoy2, fjoy3);
+    if round(t-Start,1)==17 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
+        close(f1); close(f2); close(f3)
+        
         TypeOwnOth=-1; TypeCOMM=3;
         IdFichier=find(MATB_DATA.COMM.IdxCOMM(:,1)==TypeOwnOth & MATB_DATA.COMM.IdxCOMM(:,2)==TypeCOMM);
         PsychPortAudio('FillBuffer', MATB_DATA.handlePortAudio,...
@@ -317,28 +278,21 @@ while true
         
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    if round(t-Start,1)==42 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
+    if round(t-Start,1)==20 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         f4=figure('position',[10 487 414 121],'menubar','none','numbertitle','off');
-        text(0.05,1.2,'CITRUS 211: Ce message','fontsize',18);
-        text(0.2,0.6,'ne vous concerne pas','fontsize',18);
+        text(0,1,'This one is not for you','fontsize',18);
         set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
         
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
-    if round(t-Start,1)==44 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 
-        f5=figure('position',[10 300 414 140],'menubar','none','numbertitle','off'); %[10 330 414 121]
-        text(0.2,1.2,'Donc, vous n`avez pas','fontsize',18);
-        text(0.35,0.6,'à en tenir compte','fontsize',18);
+    if round(t-Start,1)==22 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
+        f5=figure('position',[10 330 414 121],'menubar','none','numbertitle','off');
+        text(0,1,'So you don`t care :)','fontsize',18);
         set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
         MATB_DATA.LastUpdate.EVENT=GetSecs;
     end
     
-    if sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
-        % 		[MATB_DATA]=Update_JOYSTICKBUT(MATB_DATA, joy);
-        Update_JOYSTICKBUT(MATB_DATA.TRACK.JoystickID)
-    end
-    
-    if t-Start > 60
+    if t-Start > 30
         close([f4 f5])
         break
     end
@@ -353,7 +307,7 @@ function pop_nowait(texte,yesKeys)
 pop=dialog('position',[ 30   403   746   276]);
 txt = uicontrol('Parent',pop,...
     'Style','text',...
-    'Position', [80 -50 600 250],... %[100 -100 600 250]
+    'Position', [100 -100 600 250],...
     'String',texte,...
     'Fontsize',18);
 drawnow; pause(0.5)

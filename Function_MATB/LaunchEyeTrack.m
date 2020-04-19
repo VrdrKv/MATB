@@ -1,6 +1,6 @@
 function LaunchEyeTrack(MATB_DATA)
 
-for i=1%:2 For 2 eye track potentialy
+for i=1:2
     client_socket{i}=MATB_DATA.EyeTrack.client_socket{i};
     fprintf(client_socket{i}, '<SET ID="ENABLE_SEND_DATA" STATE="1" />');
     fprintf(client_socket{i}, '<SET ID="TRACKER_DISPLAY" STATE ="1" />');

@@ -1,6 +1,6 @@
 
 function [MATB_DATA]=Init_LSL(MATB_DATA)
-global fileID outlet
+global fileID outlet outlet3% SUPPRIMER OUTLET ?
 
 if MATB_DATA.LSL_Streaming
     try
@@ -18,13 +18,19 @@ if MATB_DATA.LSL_Streaming
         outlet.push_sample({0,'LSL Init',''});
         
         %%---------- EYE TRACKING
-        disp('Creating EyeTracking stream info...');
-        info = lsl_streaminfo(lib,'GazePoint','EyeTrack',24,60,'cf_float32','sdfwerr32432');
-        outlet2 = lsl_outlet(info);
-        MATB_DATA.EyeTrack.outlet=outlet2;
+%         disp('Creating EyeTracking stream info...');
+%         info = lsl_streaminfo(lib,'GazePoint','EyeTrack',24,60,'cf_float32','sdfwerr32432');
+%         outlet2 = lsl_outlet(info);
+%         MATB_DATA.EyeTrack.outlet=outlet2;
+        
+        %%---------- COMM ---- rajouté pour récupérer les données de la COMM
+        disp('Creating communication stream info...');
+        info = lsl_streaminfo(lib,'COMM','perf',1,0,'cf_double64','COMMdata');
+        outlet3 = lsl_outlet(info);
+        MATB_DATA.COMM.outlet=outlet3;
         
         disp('Now transmitting data...');
     catch
-        warning('Be sure to have the LSL library added to the path')
+        warning('Make sure that LSL library has been added to the path')
     end
 end

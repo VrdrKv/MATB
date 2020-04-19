@@ -18,7 +18,7 @@ drawnow;
 
 for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     EVENT{N_Scenar}=[];
-    Tot_Ev = [12 4 2 4; 12 4 2 4; 24 10 5 5]; %Definition du nombre d evenements/pannes pour chaque scenario (lignes) et chaque tache (colones: SYSMON (!!! Multiple de 3!!!), COM-Ev, COM-Target, RESMAN) -- AL
+    Tot_Ev = [24 10 5 5; 12 4 2 4; 24 10 5 5]; %Definition du nombre d evenements/pannes pour chaque scenario (lignes) et chaque tache (colones: SYSMON (!!! Multiple de 3!!!), COM-Ev, COM-Target, RESMAN) -- AL
     disp(['Initialisation des scénarios' num2str(N_Scenar) ' / ' num2str(size(MATB_DATA.ScenarioType,1))])
     t_Max = MATB_DATA.ScenarioDuration(N_Scenar);
 
@@ -68,7 +68,8 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     while true
         Ev=zeros(N_Ev,19);
 %         t=round(linspace(10,270,N_Ev))+randi([-10 5],1,N_Ev);  % De 5 à 270 lineairement espacé + un jitter de -10 à 5 sec 
-        t=round(linspace(10,(t_Max-20),N_Ev))+randi([-10 5],1,N_Ev); % Modifie pour permettre des scenarii de differentes durees -- AL
+%         t=round(linspace(10,(t_Max-20),N_Ev))+randi([-10 5],1,N_Ev); % Modifie pour permettre des scenarii de differentes durees -- AL
+        t=round(linspace(15,(t_Max-20),N_Ev))+randi([-10 5],1,N_Ev); % Modifie pour permettre des scenarii de differentes durees et ne déclenchant pas une comm à 0 sec
         
         TypeCOMM=randi([1 4],N_Ev,1); % NAV 1 2 ou COMM 1 2 (4 possibilite)
         TypeCOMM=TypeCOMM(randperm(length(TypeCOMM)));
@@ -80,7 +81,8 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
             Ev(i,TypeCOMM(i)+15)=value(i);
         end
         
-        if ~any(diff(Ev(:,1))<15) || ~any(Ev(:,1) <= 1)
+%         if ~any(diff(Ev(:,1))<15) || ~any(Ev(:,1) <= 1)
+        if ~any(diff(Ev(:,1))<15) && ~any(Ev(:,1) <= 1) % ---- permet de vérifier un espacement de 15 s entre chaque comm et que toutes les valeurs de la permière colonne soient >= 1
             break
         end
     end

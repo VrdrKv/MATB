@@ -12,7 +12,7 @@ while DoCalib==1
     
     fprintf(client_socket{i}, '<SET ID="CALIBRATE_SHOW" STATE="1" />');
     fprintf(client_socket{i}, '<SET ID="CALIBRATE_START" STATE="1" />');
-    pause(22); % Calibration start here + feedback
+    pause(22);
     fprintf(client_socket{i}, '<SET ID="CALIBRATE_SHOW" STATE="0" />');
     fprintf(client_socket{i}, '<SET ID="CALIBRATE_START" STATE="0" />');
     fprintf(client_socket{i}, '<SET ID="ENABLE_SEND_DATA" STATE="0" />');

@@ -11,11 +11,7 @@ if ~isempty(MATB_DATA.TRACK.JoystickID)
         ForceDuBruit = 1.10; % Si 1 elle est égale à l'input joystick si supérieur le bruit est plus fort
         Vitesse = 0.2;
         
-        % MATB_DATA.RESMAN.HorsZone est un boolen qui "dit" si les
-        % reservoirs sont Hors Zone. La 1ere lighne rajoute du bruit si
-        % hors zone
-        %         [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit + any(MATB_DATA.RESMAN.HorsZone)*0.05+0.01*randi(10,1) ); %
-        [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit); % 
+        [X,Y] = pol2cart(MATB_DATA.TRACK.ThetaForce,ForceDuBruit + any(MATB_DATA.RESMAN.HorsZone)*0.05+0.01*randi(10,1) ); % 
         
         x_R=x+Vitesse*mean([axis(MATB_DATA.TRACK.JoystickID, 1) X]);
         y_R=y+Vitesse*mean([-axis(MATB_DATA.TRACK.JoystickID, 2) Y]);

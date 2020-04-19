@@ -1,108 +1,63 @@
 % ------------------------------INFOS--------------------------------------
-% MATB - Multi Attribute Task Battery (Replica from the NASA version - https://matb.larc.nasa.gov/)
+% Script tâche de COMMUNICATION de la MATB. Script permettant de faire
+% uniquement tourner la tâche de communication de la MATB et de calculer
+% les performances en temps réel sur cette tâche. Envoie un stream LSL
+% 'COMM' pour utiliser les perf de comm sur d'autres scripts
 
-% Author: Kevin Verdiere, ISAE-SUPAERO, 2018,
-% kevin.verdiere@isae-supaero.fr
 
+% Script initialement crée par Kevin Verdière. Modifié par Alex Lafont
 % You'll absolutely need :
 % --> Simulink 3D Animation toolbox : for the Joystick interaction
 % --> Psychtoolbox : for Time, Keyboard and Sound management 
 % You migh need :
 % --> labstreaminglayer toolbox : to stream all those data :)
 
-%% -----------------------TUTORIAL & TRAINING------------------------------
+
+%% INTIALISATION
 
 close all; clc; clear; fclose('all');
 addpath('Function_MATB')
 rng('shuffle')
 
-global fileID MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA
-% SALE : MATB_DATA est parfois global parfois passer en argument
+global fileID MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA. Attention : MATB_DATA est parfois global parfois passer en argument
 MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
+MATB_DATA.LSL_Streaming = 1; % if 1, Data Streamed via LSL
 
-MATB_DATA.GazepointEyeTracker = 0;  % if 1, Gazepoint Active
-MATB_DATA.LSL_Streaming = 0;        % if 1, Data Streamed via LSL
-MATB_DATA.Param.PumpCloseTrack = 0; % if 1, When track is out of big square all pump off
-MATB_DATA.Param.TrackIfLevel = 0;   % if 1, when level are above 3000 or below 2000 TRACK is harder
-
-%-------- Initializing ----------------------------------------------------
 [MATB_DATA]=Init_LOG(MATB_DATA);
 [MATB_DATA]=Init_LSL(MATB_DATA);
-[MATB_DATA]=Init_MATB(MATB_DATA);
-[MATB_DATA]=Init_EYE_TRACK(MATB_DATA);
+[MATB_DATA]=Init_MATB_Simu23_09(MATB_DATA); 
+
+%-------- Difficulté des scenario (une valeur par scénario)----------------
+MATB_DATA.ScenarioType=[0 0 0]; % Workload 0/1  avec 0 pour low workload, 1 pour high workload
+%------------------------------------------------------------ -------------
+
+%------------------------ Scenario Duration (sec) -------------------------
+MATB_DATA.ScenarioDuration=[300 120 300];
 %--------------------------------------------------------------------------
 
-%-------- Scenario Type ---------------------------------------------------
-% Exemple : 2 scenario 10sec each
-MATB_DATA.ScenarioType=[ %Workload 0/1  avec 0 pour low workload, 1 pour high workload
-    0
-    0
-    0];
-
-% Randomisation=[ 5  1  2  6  8  7  4  3 ];
-% MATB_DATA.ScenarioType=[ % Interation 0/1  WL_PF 0/1 WL_PM 0/1
-%     0     0     0
-%     0     0     1
-%     0     1     0
-%     0     1     1
-%     1     0     0
-%     1     0     1
-%     1     1     0
-%     1     1     1];
-% MATB_DATA.ScenarioType=MATB_DATA.ScenarioType( Randomisation ,:);
-% % Add The training
-% MATB_DATA.ScenarioType=cat(1,...
-%     [   0   0   0
-%     0   1   1
-%     0   0   0
-%     0   1   1] ,MATB_DATA.ScenarioType);
-%------------------------------------------------------------ --------------
-
-%-------- Scenario Duration (sec) -----------------------------------------
-MATB_DATA.ScenarioDuration=[120 120 300];
-% MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*5,ones(1,8)*5);
-% MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*150,ones(1,8)*300);
-% MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*10,ones(1,8)*300);
-% MATB_DATA.ScenarioDuration=cat(2,ones(1,4)*10,ones(1,8)*300);
-% MATB_DATA.ScenarioDuration=ones(1,8)*300;
-%--------------------------------------------------------------------------
-
-%-------- EVENT -----------------------------------------------------------
+%---------------------- Evenements (Comms) --------------------------------
 gen_EVENT % Automatically generate events
-%EventManuel % Program MATB events manually
+% EventManuel % Program MATB events manually
 %--------------------------------------------------------------------------
 
 ListenChar(-1) % Stop taking keyboard input into matlab console
 
 % str1 = compose(str1);
-pop_waiter(["Bonjour,",... 
-    "Bienvenue dans cette expérimentation MATB!", ...
-    "(Appuyez sur 'ENTREE' pour commencer)"],1); 
-
-%-------- TUTORIAL  -------------------------------------------------------
-pop_waiter(["Afin de vous familiariser avec la tâche, merci de réaliser ce petit tutoriel", ... 
-     "(Appuyez sur 'ENTREE' pour continuer)"],1);
-Tutorial
-pop_waiter('Ce tutorial est desormais termine. Appuyez sur "Entrée" pour continuer',1)
-%--------------------------------------------------------------------------
+% pop_waiter(["Bonjour,",... 
+%     "Bienvenue dans cette expérimentation MATB!", ...
+%     "(Appuyez sur 'ENTREE' pour commencer)"],1); 
 
 %-------- TRAINING---------------------------------------------------------
-pop_waiter(["Veuillez à present vous entrainer sur la tâche", ...
-    "(Appuyez sur 'ENTREE' pour continuer)"],1);
+% pop_waiter(["Veuillez à present vous entrainer sur la tâche", ...
+%     "(Appuyez sur 'ENTREE' pour continuer)"],1);
 Training
 pop_waiter(["Les sessions d'entrainement sont desormais terminées", ...
     "(Appuyez sur 'ENTREE' pour continuer)"],1);
 %--------------------------------------------------------------------------
 
 
-% f=figure('CloseRequestFcn',@closehide);
-% 
-% %   set(f,'CloseRequestFcn',); 
-% 
-% function closehide(src,callbackdata)
-% set(src,'Visible','off');
-% end
-%% ------------------------ MAIN TASK--------------------------------------
+
+%% TACHE PRINCIPALE
 
 pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...
     "(Appuyez sur 'ENTREE' pour commencer)"],1);
@@ -112,7 +67,7 @@ pop_waiter(["Passons maintenant à la vraie tâche laquelle durera 5mn", ...
 % pop_waiter('The Cooperation instructions are on the left. Dont forget to look at it. Hit ENTER when you are READY to START the Calibration',1);
 
 for i=1:size(MATB_DATA.ScenarioType,1)
-    MATB_Main(); 
+    MATB_Main_Simu23_09(); %MATB_Main(); 
     Performance();
     MATB_DATA.ScenarioNumber=MATB_DATA.ScenarioNumber+1;
     
@@ -133,11 +88,9 @@ end
 pop_waiter(["Enregistrement des données",...
     "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
 SauvegardeDATA
-pop_waiter(["Veuillez à présent compléter un dernier questionnaire",...
-    "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
-slidervalues
-% pop_waiter(["Thank you so much!", ...
-%    "Que Dieu vous garde!"],1);
+pop_waiter(["Veuillez compléter le questionnaire NASA TLX fourni en version papier "],1);
+pop_waiter(["Thank you so much!", ...
+   "Que Dieu vous garde!"],1);
 
 ListenChar(0); fclose(fileID);
 DeleteHandle(MATB_DATA)

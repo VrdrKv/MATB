@@ -43,8 +43,7 @@ else
     set(MATB_DATA.RESMAN.handleTextNiveau(1),'Color',ColorBar)
     MATB_DATA.RESMAN.HorsZone(1)=0;
 end
-%if (MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000) && MATB_DATA.Param.TrackIfLevel 
-if MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000 
+if (MATB_DATA.RESMAN.NiveauxPompe(2)<=2000 || MATB_DATA.RESMAN.NiveauxPompe(2)>=3000) && MATB_DATA.Param.TrackIfLevel 
     set(MATB_DATA.RESMAN.handleTextNiveau(2),'Color',[1 0.6 0])
     MATB_DATA.RESMAN.HorsZone(2)=1;
 else

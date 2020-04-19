@@ -2,18 +2,12 @@ function [MATB_DATA]=Init_EYE_TRACK(MATB_DATA)
 
 if MATB_DATA.GazepointEyeTracker
     try
-        %------- CREATE FILE
-        dt=char(datetime); dt([3 7 12 15 18])='_';
-        MATB_DATA.ETfile_ID=fopen(['DATA/Eye_track_' dt '.txt'],'w');
-
-        %------- SocketConnection
-        % From gazepoint Control double clivk on server (Down)
-        ip = '10.161.8.132';  % Control Adress
-        portnum{1} = 4241; % Control Port
-        portnum{2} = 4242;
-        
-        for i=1%:2 % Pour 2 eye tracker potentiellement
-
+        for i=1:2
+            %------- SocketConnection
+            ip = '192.168.0.1';
+            portnum{1} = 4241;
+            portnum{2} = 4242;
+            
             client_socket{i}= tcpip(ip,portnum{i});
             set(client_socket{i}, 'InputBufferSize', 4096);
             
