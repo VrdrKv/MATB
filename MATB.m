@@ -19,14 +19,14 @@ MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 
 Config
 %-------- Initializing ----------------------------------------------------
-Init_LOG;
-Init_LSL;
-Init_MATB;
-Init_EYE_TRACK;
+Init_LOG();
+Init_LSL();
+Init_MATB();
+Init_EYE_TRACK();
 %--------------------------------------------------------------------------
 
 %-------- EVENT -----------------------------------------------------------
-% gen_EVENT % Automatically generate events
+gen_EVENT() % Automatically generate events
 EventManuel % Program MATB events manually
 %--------------------------------------------------------------------------
 

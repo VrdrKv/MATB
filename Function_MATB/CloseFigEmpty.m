@@ -1,6 +1,6 @@
 % f=figure('CloseRequestFcn',@CloseFigEmpty)
 
-function CloseFigEmpty(src,event)
+function CloseFigEmpty(~,~)
 %  src
 %  event
 %  set(src,'visible','off')

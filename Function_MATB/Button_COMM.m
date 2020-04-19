@@ -207,7 +207,7 @@ end
         Ligne   = floor(Val/10);
         Collone = Val - Ligne*10;
         
-        switch  Collone% On recupere la 1ere valeurs
+        switch Collone % On recupere la 1ere valeurs
             case 1
                 value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
                 value = min(max(value+1,100),150);
@@ -224,7 +224,7 @@ end
         Ligne   = floor(Val/10);
         Collone = Val - Ligne*10;
         
-        switch  Collone% On recupere la 1ere valeurs
+        switch Collone % On recupere la 1ere valeurs
             case 1
                 value=str2double(get(ValueGroup(Ligne,Collone), 'String'));
                 value = min(max(value-1,100),150);

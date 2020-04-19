@@ -62,8 +62,8 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
         %--------------- EVENT COMM -------------------%
     
     % COMM % Attention : Pas de comm à Zero
-    N_Ev=Tot_Ev(N_Scenar,2); % Nombre d'evenement (16 dans le script de Kévin)
-    Target=Tot_Ev(N_Scenar,3); % Nombre de targets (10 dans le script de Kévin)
+    N_Ev=Tot_Ev(N_Scenar,2); % Nombre d'evenement (16 dans le script de Kevin)
+    Target=Tot_Ev(N_Scenar,3); % Nombre de targets (10 dans le script de Kevin)
     while true
         Ev=zeros(N_Ev,19);
 %         t=round(linspace(10,270,N_Ev))+randi([-10 5],1,N_Ev);  % De 5 à 270 lineairement espacé + un jitter de -10 à 5 sec 

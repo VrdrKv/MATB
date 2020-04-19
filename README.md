@@ -15,7 +15,7 @@ TODO
 GLOBAL MATB Variable  
 PERFORMANCE SCRIPT harmonize  
 Outlet and FileID in MATB_DATA  
-Unclosable window. Use delte instead of close in script  
+Unclosable window. Use delete instead of close in script  
 Create CONFIG file with all parameters - Config GUI  
 - For N_Scenario and Duration
 - For random event generator
