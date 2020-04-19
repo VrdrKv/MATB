@@ -60,15 +60,13 @@ set(MATB_DATA.MainFigure,'position',MATB_DATA.MainFigurePosition)
 
 Flag = 0; % Variable utilisée pour créer un stream continu des perf de comm
 
-
 while true % Main GAME LOOP
     
     Flag = 0;
     
     t=GetSecs;
     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
-    
-        
+            
 %     disp(round(t-Start))
 %     disp(['Bool_comm : ', num2str(Bool_comm),'    Bool_perf : ', num2str(Bool_perf)])
     disp(Bool_comm)
@@ -78,8 +76,7 @@ while true % Main GAME LOOP
     
     if find(Bool_comm == 1)
 
-        if any(EVENT(:,1)==round(t-Start)) && t-MATB_DATA.LastUpdate.EVENT > 0.2 %------partie rajoutée pour contrôler la tâche de COMM depuis le script COCPIT------Initialement any(EVENT(:,1)==round(t-Start,1))&& t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
-
+        if any(EVENT(:,1)==round(t-Start),1) && t-MATB_DATA.LastUpdate.EVENT > 0.2 %------partie rajoutée pour contrôler la tâche de COMM depuis le script COCPIT------Initialement any(EVENT(:,1)==round(t-Start,1))&& t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
 
             lE=EVENT(EVENT(:,1)==round(t-Start),2:19); % initialement 1E = EVENT(EVENT(:,1) == round(t-Start,1),2:19);
 %             send_log('EVENT VEC',num2str(lE))
@@ -119,20 +116,21 @@ while true % Main GAME LOOP
     end
     
 %     pause(1)
-    %     pause(0.0001)
+%     pause(0.0001)
     drawnow
     
     %------------partie utilisée pour créer un stream continue sur LSL---------
     if Flag == 0
 %         outlet3.push_chunk(100);
         outlet3.push_sample(100);
-
-        
     end
     %--------------------------------------------------------------------------
     
-    Bool_comm = inletA.pull_chunk(); %----------- permet de récupérer un nouveau booléen
-%     Bool_comm = inletA.pull_sample(); %----------- permet de récupérer un nouveau booléen
+    tmp = inletA.pull_chunk(); %----------- permet de récupérer un nouveau booléen
+    if ~isempty(tmp)
+        Bool_comm = tmp;
+    end
+    %   Bool_comm = inletA.pull_sample(); %----------- permet de récupérer un nouveau booléen
 %     Bool_perf = inletB.pull_chunk();
 
 
@@ -146,7 +144,7 @@ while true % Main GAME LOOP
 % 
 % disp(t_fin);
 
-    pause(1)
+    pause(0.001)
     
     % idée: enlever le pause et faire un xhile qui attend qu'un booléen
     % soit envoyé par cocpit. du coup tester si la taille du vecteur LSL
