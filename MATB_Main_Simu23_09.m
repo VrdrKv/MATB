@@ -78,7 +78,7 @@ while true % Main GAME LOOP
 
         if any(EVENT(:,1)==round(t-Start),1) && t-MATB_DATA.LastUpdate.EVENT > 0.2 %------partie rajoutée pour contrôler la tâche de COMM depuis le script COCPIT------Initialement any(EVENT(:,1)==round(t-Start,1))&& t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
 
-            lE=EVENT(EVENT(:,1)==round(t-Start),2:19); % initialement 1E = EVENT(EVENT(:,1) == round(t-Start,1),2:19);
+            lE=EVENT(EVENT(:,1)==round(t-Start,1),2:19); % initialement 1E = EVENT(EVENT(:,1) == round(t-Start,1),2:19);
 %             send_log('EVENT VEC',num2str(lE))
             send_log('EVENT VEC',num2str(lE),Bool_comm)
 %             send_log('EVENT VEC',num2str(lE),Bool_comm,Bool_perf)
