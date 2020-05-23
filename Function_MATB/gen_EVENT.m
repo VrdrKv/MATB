@@ -1,4 +1,4 @@
-function gen_EVENT
+function gen_EVENT(Tot_Ev)
 global MATB_DATA
 % % EVENT MATB
 %
@@ -16,10 +16,10 @@ txt = uicontrol('Parent',pop,...
     'Fontsize',18);
 drawnow;
 
-for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
+for N_Scenar=1:size(MATB_DATA.ScenarioType,2)
     EVENT{N_Scenar}=[];
-    Tot_Ev = [12 4 2 4; 12 4 2 4; 24 10 5 5]; %Definition du nombre d evenements/pannes pour chaque scenario (lignes) et chaque tache (colones: SYSMON (!!! Multiple de 3!!!), COM-Ev, COM-Target, RESMAN) -- AL
-    disp(['Initialisation des scénarios' num2str(N_Scenar) ' / ' num2str(size(MATB_DATA.ScenarioType,1))])
+
+    disp(['Generating Event for ' num2str(N_Scenar) ' / ' num2str(size(MATB_DATA.ScenarioType))])
     t_Max = MATB_DATA.ScenarioDuration(N_Scenar);
 
     %--------------- EVENT SYSMON -------------------%
@@ -52,7 +52,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
 
     
         %--------------- EVENT TRACK -------------------%
-    if MATB_DATA.ScenarioType(N_Scenar,1)==0  %  Facile
+    if MATB_DATA.ScenarioType(N_Scenar)==0  %  Facile
         MATB_DATA.TRACK.Difficulty{N_Scenar}=0;
     else %  Difficile
         MATB_DATA.TRACK.Difficulty{N_Scenar}=1;
@@ -88,7 +88,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
     MATB_DATA.COMM.NbrTarget = Target; % ligne rajoutee pour recuperer le nombre de target et l utiliser dans la fonction PerfComm
     
         %--------------- EVENT RESMAN -------------------%
-    if MATB_DATA.ScenarioType(N_Scenar,1)==0  % Facile
+    if MATB_DATA.ScenarioType(N_Scenar)==0  % Facile
         
         N_Panne=Tot_Ev(N_Scenar,4); % (8 dans le script de Kevin)
         MATB_DATA.RESMAN.FluxPompe{N_Scenar}=[70 60 70 60 60 60 40 40 80 80]/3; % FlowRatesPompes Pompe 1 a 8 plus Vidage A et B Attention les deux dernières valeurs correspondent aux deux reservoirs (attention les valeurs doivent etre sup ou inf autres)

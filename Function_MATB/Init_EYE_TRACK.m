@@ -12,7 +12,7 @@ if MATB_DATA.GazepointEyeTracker
         portnum{1} = MATB_DATA.Param.EyeTracker.PortNum{1}; % Control Port
         portnum{2} = 4242;
         
-        for i=1%:2 % Pour 2 eye tracker potentiellement
+        for i=1%:2 for 2 EyeTracker potentially
 
             client_socket{i}= tcpip(ip,portnum{i});
             set(client_socket{i}, 'InputBufferSize', 4096);

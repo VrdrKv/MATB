@@ -18,16 +18,14 @@ global MATB_DATA % Almost every important game mechanics data is stocked in MATB
 MATB_DATA=[]; MATB_DATA.ScenarioNumber=1;
 
 Config
+
+%% FROM HERE YOU SHOULD NOT MODIFY ANYTHING 
+% unless you are wiling to modify the task behavior
 %-------- Initializing ----------------------------------------------------
 Init_LOG();
 Init_LSL();
 Init_MATB();
 Init_EYE_TRACK();
-%--------------------------------------------------------------------------
-
-%-------- EVENT -----------------------------------------------------------
-gen_EVENT() % Automatically generate events
-EventManuel % Program MATB events manually
 %--------------------------------------------------------------------------
 
 ListenChar(-1) % Stop taking keyboard input into matlab console
@@ -60,10 +58,10 @@ end
 %     "(Appuyez sur 'ENTREE' pour commencer)"],1);
 
 % MATB_DATA.ScenarioType % Diplaying just to be sure :)
-% [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1),MATB_DATA.ScenarioNumber);
+% [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber),MATB_DATA.ScenarioNumber);
 % pop_waiter('The Cooperation instructions are on the left. Dont forget to look at it. Hit ENTER when you are READY to START the Calibration',1);
 
-for i=1:size(MATB_DATA.ScenarioType,1)
+for i=1:size(MATB_DATA.ScenarioType,2)
     MATB_Main(); 
     Performance();
     MATB_DATA.ScenarioNumber=MATB_DATA.ScenarioNumber+1;
@@ -72,12 +70,12 @@ for i=1:size(MATB_DATA.ScenarioType,1)
     pop_waiter(["FIN DE LA TACHE",... 
         "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
     
-    if MATB_DATA.ScenarioNumber > size(MATB_DATA.ScenarioType,1)
+    if MATB_DATA.ScenarioNumber > size(MATB_DATA.ScenarioType,2)
         break
     end
 %     close(pop)
 %     
-%     [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1),MATB_DATA.ScenarioNumber);
+%     [pop]=guide(MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber),MATB_DATA.ScenarioNumber);
 %     pop_waiter(['Look at the Instructions for Scenario ' num2str(MATB_DATA.ScenarioNumber-4) ' and hit Enter to START'],1);
 end
 % close(pop)

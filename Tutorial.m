@@ -1,4 +1,4 @@
-global MATB_DATA outlet
+global MATB_DATA
 
 deviceIndex=[];
 KbQueueCreate(deviceIndex);

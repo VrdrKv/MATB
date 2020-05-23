@@ -1,11 +1,11 @@
 global MATB_DATA
-
 % % EVENT MATB
-%
-%  SON minimum 15 secondes entre les MESSAGES
-%
-%            -1: Bas  1: Haut      -1: Error         Pmp    -1:Error     1:PluError               1:Own -1:Others
-% Seconds  F1    F2    F3    F4    F5    F6     1     2     3    4     5     6     7      8   NAV1  NAV2   COM1  COM2
+% 
+% COMMUNICATION EVENTS should be at least seperated by 15 seconds
+% BROKEN PUMP SHOULD BE REPAIRED at some point right ?
+%               DEVIATION           
+%            -1: LOW  1: UP    -1: Error         Pmp    -1:Broken     1:Repaired               1:Own -1:Others
+%Seconds F1    F2    F3    F4    F5    F6     1     2     3    4     5     6     7      8   NAV1  NAV2   COM1  COM2
 EVENT{1}=[
     1     1     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
     2     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
@@ -45,7 +45,7 @@ EVENT{3}=[
     10    0     0     0     1     0     1     0     0     0     0     0     0     0     0     0     0     0     0
     ];
 
-MATB_DATA.RESMAN.FluxPompe{1}=[70 60 70 60 60 60 40 40 80 80]/3;  % Flux des pompes en unités 
+MATB_DATA.RESMAN.FluxPompe{1}=[70 60 70 60 60 60 40 40 80 80]/3;  % PUMP FLOW
 MATB_DATA.RESMAN.FluxPompe{2}=[70 60 70 60 60 60 40 40 80 80]/3;
 MATB_DATA.RESMAN.FluxPompe{3}=[70 60 70 60 60 60 40 40 80 80]/3;
 

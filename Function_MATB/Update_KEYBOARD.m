@@ -1,4 +1,3 @@
-%         [pmp,al,faulty_al,LastUpdate_KB]=Update_KEYBOARD(pmp,al,faulty_al);
 function Update_KEYBOARD
 global MATB_DATA
 % Update_KeyBoard
@@ -8,7 +7,7 @@ global MATB_DATA
 AutreClavierF1F6={};
 ToucheF1F6=cat(2,AutreClavierF1F6,'F');
 
-TouchePompeKb1={'1','2','3','4','6','7','8','9'}; % pour utiliser le clavier de COCPIT pour les pompes. Attention, les touches ...
+TouchePompeKb1={'1','2','3','4','5','6','7','8'}; % pour utiliser le clavier de COCPIT pour les pompes. Attention, les touches ...
 % devraient normalement etre les caractères speciaux de la premiere ligne du clavier comme ci-apres TouchePompeKb1={'1!','2@',"3#",'4$','6^','7&','8*','9('};
 % mais la fonction ismember(KeyName(1), TouchePompe) ne considere que le premier terme du keyname. nousa avons donc simplement garde les premiers
 % caracteres

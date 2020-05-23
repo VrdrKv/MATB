@@ -14,14 +14,14 @@ EVENT=MATB_DATA.EVENT{MATB_DATA.ScenarioNumber};
 %pop_waiter("Appuyez sur 'ENTREE' lorsque vous etes pret(e)",1)
 
 
-% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1)==0
+% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber)==0
 %     pop_waiter('DONT COOPERATE',1)
 % else
 %     pop_waiter('COOPERATE',1)
 % end
 
 if MATB_DATA.GazepointEyeTracker
-    LaunchEyeTrack
+    LaunchEyeTrack()
 end
 
 Start = GetSecs;
@@ -30,17 +30,17 @@ if MATB_DATA.LSL_Streaming
     MATB_DATA.LSLoutlet.push_sample({0,'STARTING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
 end
 
-% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1)==0
+% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber)==0
 %     Int='OFF';
 % else
 %     Int='ON';
 % end
-% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,2)==0
+% if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber)==0
 %     WL_PF='EASY';
 % else
 %     WL_PF='HARD';
 % end
-if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber,1)==0
+if MATB_DATA.ScenarioType(MATB_DATA.ScenarioNumber)==0
     WL_PM='EASY';
 else
     WL_PM='HARD';
@@ -68,7 +68,7 @@ KbQueueStart(deviceIndex);
 set(MATB_DATA.MainFigure,'position',MATB_DATA.MainFigurePosition)
 MATB_DATA.ScenarioStartedAt=Start;
 
-while true % Main GAME LOOp
+while true % Main GAME LOOP
     t=GetSecs;
     %     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
     
