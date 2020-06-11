@@ -4,7 +4,7 @@ if any(lE(1:6)~=0) % Si jamais y'a du SYSMON
     Fnum=lE(1:6);
     MATB_DATA.SYSMON.EtatAlarm(Fnum~=0,1)=1;
     MATB_DATA.SYSMON.EtatAlarm(Fnum~=0,2)=Fnum(Fnum~=0);
-    MATB_DATA.SYSMON.EtatAlarm(Fnum~=0,3)=GetSecs;
+    MATB_DATA.SYSMON.EtatAlarm(Fnum~=0,3)=hat;
 end
 
 if any(lE(7:14)~=0) % Si jamais y'a des POMPES a changer
@@ -30,14 +30,15 @@ if any(lE(15:18)~=0) && MATB_DATA.Param.CommActive % Si jamais y'a de la COMM a 
     %     PsychPortAudio('Start', MATB_DATA.handlePortAudio,1,0,1);
     
     NumRandFichier=randi(8,1);
-  
-    PsychPortAudio('FillBuffer', MATB_DATA.handlePortAudio,...
-        [MATB_DATA.COMM.ListFichierAudio{IdFichier(NumRandFichier)}' ; MATB_DATA.COMM.ListFichierAudio{IdFichier(NumRandFichier)}']);
-    PsychPortAudio('Start', MATB_DATA.handlePortAudio,1,0,1);
+
+    play(MATB_DATA.COMM.playerObj(IdFichier(NumRandFichier)))
+%     PsychPortAudio('FillBuffer', MATB_DATA.handlePortAudio,...
+%         [MATB_DATA.COMM.ListFichierAudio{IdFichier(NumRandFichier)}' ; MATB_DATA.COMM.ListFichierAudio{IdFichier(NumRandFichier)}']);
+%     PsychPortAudio('Start', MATB_DATA.handlePortAudio,1,0,1);
     
     Fich=MATB_DATA.COMM.NomFichierAudio{IdFichier(NumRandFichier)};
     send_log('COMM PLAY',Fich);
     MATB_DATA.COMM.DATA{MATB_DATA.ScenarioNumber}=cat(1,MATB_DATA.COMM.DATA{MATB_DATA.ScenarioNumber},cat(2,TypeOwnOth,TypeCOMM,str2num(Fich(end-10:end-8)),str2num(Fich(end-6:end-4)),0));
 end
 
-MATB_DATA.LastUpdate.EVENT=GetSecs;
+MATB_DATA.LastUpdate.EVENT=hat;

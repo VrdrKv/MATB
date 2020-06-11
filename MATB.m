@@ -5,13 +5,13 @@
 % kevin.verdiere@isae-supaero.fr
 
 % You'll absolutely need :
-% --> Simulink 3D Animation toolbox : for the Joystick interaction
+% --> Simulink 3D Animation toolbox :for the Joystick interaction
 % --> Psychtoolbox : for Time, Keyboard and Sound management 
 % You migh need :
 % --> labstreaminglayer toolbox : to stream all those data :)
 
 close all; clc; clear; fclose('all');
-addpath('Function_MATB')
+addpath(genpath('Function_MATB'))
 rng('shuffle')
 
 global MATB_DATA % Almost every important game mechanics data is stocked in MATB_DATA
@@ -28,7 +28,7 @@ Init_MATB();
 Init_EYE_TRACK();
 %--------------------------------------------------------------------------
 
-ListenChar(-1) % Stop taking keyboard input into matlab console
+% ListenChar(-1) % Stop taking keyboard input into matlab console
 
 % pop_waiter(["Bonjour,",... 
 %     "Bienvenue dans cette expérimentation MATB!", ...
@@ -66,7 +66,7 @@ for i=1:size(MATB_DATA.ScenarioType,2)
     Performance();
     MATB_DATA.ScenarioNumber=MATB_DATA.ScenarioNumber+1;
     
-    pause(2)
+    pause(1)
     pop_waiter(["FIN DE LA TACHE",... 
         "(Appuyez sur la touche 'ENTREE' pour continuer)"],1);
     
@@ -90,7 +90,7 @@ end
 % pop_waiter(["Que Dieu vous garde!"],1);
 
 DeleteHandle
-ListenChar(0); 
+% ListenChar(0); 
 
 close all
 diary off

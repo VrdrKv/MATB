@@ -4,7 +4,7 @@ global fileID Start MATB_DATA outlet
 
 EVENT=MATB_DATA.EVENT{MATB_DATA.ScenarioNumber};
 
-Start = GetSecs;
+Start = hat;
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'STARTING TRAINING');
 outlet.push_sample({0,'STARTING TRAINING'});
 
@@ -21,7 +21,7 @@ MATB_DATA.COMM.DATA{MATB_DATA.ScenarioNumber}=[];
 MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber}=[];
 
 while true
-    t=GetSecs;
+    t=hat;
     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
     
     % SET EVENTS
@@ -52,7 +52,7 @@ while true
         
         MATB_DATA.TRACK.DATA{MATB_DATA.ScenarioNumber}=cat(1,MATB_DATA.TRACK.DATA{MATB_DATA.ScenarioNumber},[x y]);
         
-        MATB_DATA.LastUpdate.LOG=GetSecs;
+        MATB_DATA.LastUpdate.LOG=hat;
     end
     
     if t-Start > MATB_DATA.TrainingDuration

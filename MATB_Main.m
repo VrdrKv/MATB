@@ -24,7 +24,7 @@ if MATB_DATA.GazepointEyeTracker
     LaunchEyeTrack()
 end
 
-Start = GetSecs;
+Start = hat;
 fprintf(MATB_DATA.LogFileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,['STARTING SCENARIO' num2str(MATB_DATA.ScenarioNumber)]);
 if MATB_DATA.LSL_Streaming
     MATB_DATA.LSLoutlet.push_sample({0,'STARTING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
@@ -61,15 +61,15 @@ MATB_DATA.COMM.DATA{MATB_DATA.ScenarioNumber}=[];
 MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber}=[];
 MATB_DATA.KeyboardAction{MATB_DATA.ScenarioNumber}=[];
 
-deviceIndex=[];
-KbQueueCreate(deviceIndex);
-KbQueueStart(deviceIndex);
+% deviceIndex=[];
+% KbQueueCreate(deviceIndex);
+% KbQueueStart(deviceIndex);
 
 set(MATB_DATA.MainFigure,'position',MATB_DATA.MainFigurePosition)
 MATB_DATA.ScenarioStartedAt=Start;
 
 while true % Main GAME LOOP
-    t=GetSecs;
+    t=hat;
     %     set(MATB_DATA.MainFigure,'name',['Elapsed Time ' num2str(t-Start)])
     
     % SET EVENTS
@@ -81,11 +81,11 @@ while true % Main GAME LOOP
     
     % UPDATE ALL TASKS
     %     if t-MATB_DATA.LastUpdate.KB >= 0.0
-    Update_KEYBOARD()
+%     Update_KEYBOARD()
     Send_EyeTRACK()
 
     
-	if ~isempty(MATB_DATA.TRACK.JoystickID) && sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
+	if ~isempty(MATB_DATA.TRACK.JoystickID) && sum(button(MATB_DATA.TRACK.JoystickID)) && hat-MATB_DATA.LastUpdate.JS>=0.25
         Update_JOYSTICKBUT()
     end
     
@@ -105,7 +105,7 @@ while true % Main GAME LOOP
         
         MATB_DATA.TRACK.DATA{MATB_DATA.ScenarioNumber}=cat(1,MATB_DATA.TRACK.DATA{MATB_DATA.ScenarioNumber},[x y]);
         
-        MATB_DATA.LastUpdate.LOG=GetSecs;
+        MATB_DATA.LastUpdate.LOG=hat;
     end
     
     if t-Start > MATB_DATA.ScenarioDuration(MATB_DATA.ScenarioNumber)
@@ -113,7 +113,7 @@ while true % Main GAME LOOP
         if MATB_DATA.LSL_Streaming
             MATB_DATA.LSLoutlet.push_sample({0,'STOPING',[' SCENARIO ' num2str(MATB_DATA.ScenarioNumber)]});
         end
-        PsychPortAudio('Stop', MATB_DATA.handlePortAudio);
+%         PsychPortAudio('Stop', MATB_DATA.handlePortAudio);
         
         ReInit_MATB()
         break
@@ -123,7 +123,7 @@ while true % Main GAME LOOP
 end
 
 if MATB_DATA.GazepointEyeTracker
-    CloseEyeTrack(MATB_DATA)
+    CloseEyeTrack()
 end
     
-KbQueueStop
+% KbQueueStop

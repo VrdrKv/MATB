@@ -3,7 +3,7 @@ global MATB_DATA
 deviceIndex=[];
 KbQueueCreate(deviceIndex);
 KbQueueStart(deviceIndex);
-Start = GetSecs;
+Start = hat;
 yesKeys = KbName('Return');
 
 MATB_DATA.LastUpdate.RESMAN=Start;
@@ -41,10 +41,10 @@ txt = uicontrol('Parent',pop,...
 a=[ones(10,1) ; -ones(10,1)];
 Ev=[randi(35,20,1)+15 randi(6,20,1) a(randperm(20))];
 
-Start=GetSecs;
+Start=hat;
 MATB_DATA.ScenarioStartedAt=Start;
 while true
-    t=GetSecs;
+    t=hat;
     
     % SET EVENTS
     if round(t-Start,1)==10 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
@@ -60,7 +60,7 @@ while true
             'String','Essayez maintenant de répondre aux alarmes. Lorsque le niveau d`une jauge s`eloigne du milieu, appuyez sur le numéro correspondant à la jauge (bouton 1 à 4, première ligne du clavier). Lorsque F5 cesse d`etre vert, appuyez sur F5. Enfin, lorsque F6 devient rouge, appuyez sur la touche F6. ',...
             'Fontsize',18);
         
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     
     if any(Ev(:,1)==round(t-Start,1)) &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
@@ -68,8 +68,8 @@ while true
         
         MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),1)=1;
         MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),2)=Ev(N_Ev,3);
-        MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),3)=GetSecs;
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.SYSMON.EtatAlarm(Ev(N_Ev,2),3)=hat;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     
     % UPDATE ALL TASKS
@@ -106,10 +106,10 @@ txt = uicontrol('Parent',pop,...
     'String','Maintenez le cercle dans le carré central',...
     'Fontsize',18);
 MATB_DATA.TRACK.Difficulty{1}=0;
-Start=GetSecs;
+Start=hat;
 MATB_DATA.ScenarioStartedAt=Start;
 while true
-    t=GetSecs;
+    t=hat;
     
     % SET EVENTS
     if round(t-Start,1)==20 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
@@ -120,11 +120,11 @@ while true
             'Position', [-150 -100 850 250],...
             'String','Cela peut aussi devenir plus dur',...
             'Fontsize',18);
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     if round(t-Start,1)==25 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         MATB_DATA.TRACK.Difficulty{1}=1;
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     
     % UPDATE ALL TASKS
@@ -170,10 +170,10 @@ delete(fClav2);
 pop_nowait('Au début, toutes les pompes seront desactivées (grises) et les réservoirs A et B seront vides, donc n`oubliez pas d`activer les pompes !',yesKeys)
 pop_nowait('Parfait, faisons maintenant un petit essai. Restez proche de 2500, pas plus, pas moins, 2500 !',yesKeys)
 
-Start=GetSecs;
+Start=hat;
 MATB_DATA.ScenarioStartedAt=Start;
 while true
-    t=GetSecs;
+    t=hat;
     
     % SET EVENTS
     if round(t-Start,1)==20 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
@@ -183,7 +183,7 @@ while true
             'Position', [-50 -100 850 250],...
             'String','Les pompes 1, 2, 3 et 4 sont les plus importantes',...
             'Fontsize',18);
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     if round(t-Start,1)==25 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         pop=dialog('position',[26    56   745   254],'CloseRequestFcn',@CloseFigEmpty);
@@ -192,7 +192,7 @@ while true
             'Position', [100 -100 600 250],...
             'String','Les pompes 5 et 6 doivent être activées tout le temps pour maintenir les réservoirs auxiliaires (C et D) pleins. Les réservoirs E et F sont illimités',...
             'Fontsize',18);
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     
     if round(t-Start,1)==40 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
@@ -204,7 +204,7 @@ while true
             'Position', [100 -100 600 250],...
             'String','A présent les pompes 1 et 2 sont défectueuses, elles ne marchent plus. Vous pouvez simplement attendre qu`elles redeviennent fonctionnelles',...
             'Fontsize',18);
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     if round(t-Start,1)==45 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2 % Si jamais y'a un event et qu'il attend 200ms
         pop=dialog('position',[26    56   745   254],'CloseRequestFcn',@CloseFigEmpty);
@@ -213,7 +213,7 @@ while true
             'Position', [100 -100 600 250],...
             'String','En attendant le retour des pompes 1 et 2, vous pouvez activer la pompe 8 pour maintenir un niveau stable dans le réservoir A',...
             'Fontsize',18);
-        MATB_DATA.LastUpdate.EVENT=GetSecs;
+        MATB_DATA.LastUpdate.EVENT=hat;
     end
     
     % UPDATE ALL TASKS
@@ -227,7 +227,7 @@ while true
     
     if t-MATB_DATA.LastUpdate.LOG >= 0.5
         send_log('RESMAN',num2str(MATB_DATA.RESMAN.NiveauxPompe));
-        MATB_DATA.LastUpdate.LOG=GetSecs;
+        MATB_DATA.LastUpdate.LOG=hat;
     end
     
     if t-Start > 60
@@ -254,10 +254,10 @@ if MATB_DATA.Param.CommActive
         'Fontsize',18);
     drawnow;
     
-Start=GetSecs;
+Start=hat;
 MATB_DATA.ScenarioStartedAt=Start;
     while true
-        t=GetSecs;
+        t=hat;
         
         % SET EVENTS
         if round(t-Start,1)==1 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
@@ -267,13 +267,13 @@ MATB_DATA.ScenarioStartedAt=Start;
                 [MATB_DATA.COMM.ListFichierAudio{IdFichier(1)}' ; MATB_DATA.COMM.ListFichierAudio{IdFichier(1)}']);
             PsychPortAudio('Start', MATB_DATA.handlePortAudio,1,0,1);
             
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         if round(t-Start,1)==3 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
             f1=figure('position',[10 487 414 121],'menubar','none','numbertitle','off','CloseRequestFcn',@CloseFigEmpty);
             text(-0.1,1,'NASA 504: Cela vous concerne','fontsize',18);
             set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         if round(t-Start,1)==12 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
             delete(pop)
@@ -308,7 +308,7 @@ MATB_DATA.ScenarioStartedAt=Start;
             imagesc(imread('Function_MATB\gachette3.png'))
             set(gca,'position',[ 0 0  1 1]); axis off
             
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         
         if round(t-Start,1)==40 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
@@ -319,7 +319,7 @@ MATB_DATA.ScenarioStartedAt=Start;
                 [MATB_DATA.COMM.ListFichierAudio{IdFichier(1)}' ; MATB_DATA.COMM.ListFichierAudio{IdFichier(1)}']);
             PsychPortAudio('Start', MATB_DATA.handlePortAudio,1,0,1);
             
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         if round(t-Start,1)==42 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
             f4=figure('position',[10 487 414 121],'menubar','none','numbertitle','off','CloseRequestFcn',@CloseFigEmpty);
@@ -327,17 +327,17 @@ MATB_DATA.ScenarioStartedAt=Start;
             text(0.2,0.6,'ne vous concerne pas','fontsize',18);
             set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
             
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         if round(t-Start,1)==44 &&  t-MATB_DATA.LastUpdate.EVENT > 0.2
             f5=figure('position',[10 300 414 140],'menubar','none','numbertitle','off','CloseRequestFcn',@CloseFigEmpty); %[10 330 414 121]
             text(0.2,1.2,'Donc, vous n`avez pas','fontsize',18);
             text(0.35,0.6,'à en tenir compte','fontsize',18);
             set(gca,'xlim',[0 2],'ylim',[0 2]); axis off
-            MATB_DATA.LastUpdate.EVENT=GetSecs;
+            MATB_DATA.LastUpdate.EVENT=hat;
         end
         
-        if sum(button(MATB_DATA.TRACK.JoystickID)) && GetSecs-MATB_DATA.LastUpdate.JS>=0.25
+        if sum(button(MATB_DATA.TRACK.JoystickID)) && hat-MATB_DATA.LastUpdate.JS>=0.25
             Update_JOYSTICKBUT()
         end
         
@@ -354,19 +354,19 @@ end
 PsychPortAudio('Stop', MATB_DATA.handlePortAudio);
 KbQueueStop
 
-function pop_nowait(texte,yesKeys)
-pop=dialog('position',[ 30   403   746   276],'CloseRequestFcn',@CloseFigEmpty);
-txt = uicontrol('Parent',pop,...
-    'Style','text',...
-    'Position', [80 -50 600 250],... %[100 -100 600 250]
-    'String',texte,...
-    'Fontsize',18);
-drawnow; pause(0.5)
-while true
-    [~,~,keyCode] = KbCheck;
-    if any(keyCode(yesKeys))
-        break
-    end
-end
-delete(pop)
-end
+% function pop_nowait(texte,yesKeys)
+% pop=dialog('position',[ 30   403   746   276],'CloseRequestFcn',@CloseFigEmpty);
+% txt = uicontrol('Parent',pop,...
+%     'Style','text',...
+%     'Position', [80 -50 600 250],... %[100 -100 600 250]
+%     'String',texte,...
+%     'Fontsize',18);
+% drawnow; pause(0.5)
+% while true
+%     [~,~,keyCode] = KbCheck;
+%     if any(keyCode(yesKeys))
+%         break
+%     end
+% end
+% delete(pop)
+% end

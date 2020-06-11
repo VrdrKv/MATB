@@ -30,5 +30,5 @@ end
 %     MATB_DATA.SYSMON.EtatAlarm(6)=1;
 % end
 
-MATB_DATA.LastUpdate.SYSMON=GetSecs;
+MATB_DATA.LastUpdate.SYSMON=hat;
 

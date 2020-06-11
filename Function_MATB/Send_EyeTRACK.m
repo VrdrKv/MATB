@@ -26,7 +26,7 @@ if MATB_DATA.GazepointEyeTracker
    
     D{1} = round(max(0,D{1})); % On suprrime les valeurs negatives et on arrondi au pixels
     fprintf(MATB_DATA.ETfile_ID,['%s\t\t %.4f \t\t\t %s \t\t ' repmat('%i\t' ,1,12) ' \n'],...
-        char(datetime('now','Format','HH:mm:ss')),GetSecs-Start,'EyeTrack 1',D{1});
+        char(datetime('now','Format','HH:mm:ss')),hat-Start,'EyeTrack 1',D{1});
     if MATB_DATA.LSL_Streaming
         %     outlet.push_sample(cat(1,D{1},D{2}));
         outlet=MATB_DATA.EyeTrack.outlet;

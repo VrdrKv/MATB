@@ -2,7 +2,8 @@ function DeleteHandle
 global MATB_DATA
 
 try
-    PsychHID('KbQueueStop'), PsychPortAudio('close', MATB_DATA.handlePortAudio)
+    %     PsychHID('KbQueueStop')
+    %     PsychPortAudio('close', MATB_DATA.handlePortAudio)
     fclose(MATB_DATA.LogFileID);
 catch
     

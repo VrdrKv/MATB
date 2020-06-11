@@ -55,4 +55,4 @@ switch ButonAppuye(1) % On prend le premier sinon ca fait une erreur quand on ap
 			DigIdx(:,1))),3}), 'String', num2str(value+25));
 end
 
-MATB_DATA.LastUpdate.JS=GetSecs;
+MATB_DATA.LastUpdate.JS=hat;

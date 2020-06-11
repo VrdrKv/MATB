@@ -33,7 +33,9 @@ try
     for i=1:80 % Load all the audio directly into memory
         %     a=cat(2,a,'.'); disp(a)
         [y,Fs] = audioread(['Audio/' MATB_DATA.COMM.NomFichierAudio{i}]);
-        MATB_DATA.COMM.ListFichierAudio{i}=resample(y,44100,Fs);
+        %         MATB_DATA.COMM.ListFichierAudio{i}=resample(y,44100,Fs);
+
+        MATB_DATA.COMM.playerObj(i) = audioplayer(resample(y,44100,Fs),44100);
     end
     MATB_DATA.COMM.IdxCOMM=cat(2,[-ones(20,1) ; ones(20,1) ; -ones(20,1) ; ones(20,1)],[ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*1 ; ones(10,1)*2 ; ones(10,1)*3 ; ones(10,1)*4 ; ones(10,1)*3 ; ones(10,1)*4]);
 catch
@@ -41,19 +43,26 @@ catch
     MATB_DATA.Param.CommActive = 0;
 end
 
-try
-    InitializePsychSound
-    if IsLinux
-        pahandle = PsychPortAudio('Open');
-    else
-        pahandle = PsychPortAudio('Open',[],[],0,[],2);
-    end
-    MATB_DATA.handlePortAudio=pahandle;
-catch
-    warning('Unable to Initialize PsychSound - Check that you have Psychtoolbox installed and in path')
-    MATB_DATA.Param.CommActive = 0;
-end
+% try
+%     InitializePsychSound
+%     if IsLinux
+%         pahandle = PsychPortAudio('Open');
+%     else
+%         pahandle = PsychPortAudio('Open',[],[],0,[],2);
+%     end
+%     MATB_DATA.handlePortAudio=pahandle;
+% catch
+%     warning('Unable to Initialize PsychSound - Check that you have Psychtoolbox installed and in path')
+%     MATB_DATA.Param.CommActive = 0;
+% end
 
+%----- V2
+% for i=1:80
+% playerObj(i) = audioplayer(MATB_DATA.COMM.ListFichierAudio{i},44100);
+% end
+% play(playerObj(79))
+
+%----- OLD VERSION
 % [y,Fs] = audioread('Audio/OWN_TESTFILE.wav');
 % y2=resample(y,44100,Fs);
 % PsychPortAudio('FillBuffer', pahandle, [y2' ; y2']);

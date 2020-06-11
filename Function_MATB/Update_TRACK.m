@@ -57,4 +57,4 @@ if  (x > 4 || y > 4 || x < -4 || y < -4)% && ~all(get(MATB_DATA.TRACK.handleCibl
 end
 
 
-MATB_DATA.LastUpdate.TRACK=GetSecs;
+MATB_DATA.LastUpdate.TRACK=hat;

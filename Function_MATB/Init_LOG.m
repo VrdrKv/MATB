@@ -1,6 +1,11 @@
 % Init LOG
 function Init_LOG
-global MATB_DATA 
+global MATB_DATA
+
+if ~isfolder('LOG')
+    mkdir('LOG')
+end
+
 dt=char(datetime); dt([3 7 12 15 18])='_';
 fileID=fopen(['LOG/log_' dt '.txt'],'w');
 
@@ -15,7 +20,7 @@ fprintf(fileID,['# ', char(datetime) '\n',...
 
 % fprintf(fileID,'%.4f \t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'INITIALIZING'); 
 fprintf(fileID,'%s\t\t %.4f \t\t\t %s \n',char(datetime('now','Format','HH:mm:ss')),0,'INITIALIZING'); 
-% fprintf(fileID,[num2str(GetSecs) '\t\t' num2str(0)  '\t\t\t' ' Intializing \n' ]);
+% fprintf(fileID,[num2str(hat) '\t\t' num2str(0)  '\t\t\t' ' Intializing \n' ]);
 % fclose(fileID);
 
 MATB_DATA.LogFileID=fileID;

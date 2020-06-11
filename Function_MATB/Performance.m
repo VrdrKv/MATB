@@ -2,12 +2,15 @@
 function Performance
 global MATB_DATA
 
-FigPerf=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off','name','Performance','windowstyle','Modal','CloseRequestFcn',@CloseFigEmpty);
+FigPerf=figure('position',[ 449  55  1056  948],'menubar','none','numbertitle','off',...
+    'name','Performance','windowstyle','Modal',...
+    'CloseRequestFcn',@CloseFigEmpty,...
+    'WindowKeyPressFcn',@KeyRecup);
 
 Posi=[ .1 .6 .3 .3
-       .5 .55 .4 .35
-       .5 .05 .4 .4
-       .1 .1 .3 .3 ];
+    .5 .55 .4 .35
+    .5 .05 .4 .4
+    .1 .1 .3 .3 ];
 
 %% SYSMON
 if ~isempty(MATB_DATA.SYSMON.DATA{MATB_DATA.ScenarioNumber})
@@ -32,11 +35,11 @@ ttt=text(2.5,-.07,[num2str(round(mean(PS),2)) ' seconds'],'fontsize',20);
 if mean(PS) <= 7 && mean(PS) > 4
     set(ttt,'color',[1 0.6 0])
 else if mean(PS) <= 4
-         set(ttt,'color','k')
+        set(ttt,'color','k')
     else
-       set(ttt,'color','r')
+        set(ttt,'color','r')
     end
-
+    
 end
 xlim([0 8])
 ylim([-0.3 0.4])
@@ -121,10 +124,10 @@ axis off
 %% RESMAN
 PR=abs(2500-MATB_DATA.RESMAN.DATA{MATB_DATA.ScenarioNumber});
 subplot('Position',Posi(3,:))
-  ColorBar=[0 0.4470 0.7410];
+ColorBar=[0 0.4470 0.7410];
 ColorBar2=[116/256 208/256 241/256];
-  LW=1; FontSz=13;
- 
+LW=1; FontSz=13;
+
 %---GAUCHE
 dec=0; ht=1;
 % Marqueurs Remplissage sur A et B
@@ -138,8 +141,8 @@ fill(10+[8 8 7.5 7.5]+dec,[15 17 17 15]+ht,ColorBar2,'linestyle','none'); hold o
 plot(10+[7.5 8]+dec,[16 16]+ht,'Color',ColorBar,'linewidth',LW)
 
 % A B
-plot([2.5 2.5 7.5 7.5 2.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW); 
-plot([12.5 12.5 17.5 17.5 12.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW); 
+plot([2.5 2.5 7.5 7.5 2.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW);
+plot([12.5 12.5 17.5 17.5 12.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW);
 
 % Niveaux des Reservoirs
 h_NIV(1)=fill([2.6 2.6 7.4 7.4]+dec,[12.1 16 16 12.1]+ht,[0 1 0],'linestyle','none');
@@ -158,8 +161,8 @@ fill(10+[8 8 7.5 7.5]+dec,[15 17 17 15]+ht,ColorBar2,'linestyle','none'); hold o
 plot(10+[7.5 8]+dec,[16 16]+ht,'Color',ColorBar,'linewidth',LW)
 
 % A B
-plot([2.5 2.5 7.5 7.5 2.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW); 
-plot([12.5 12.5 17.5 17.5 12.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW); 
+plot([2.5 2.5 7.5 7.5 2.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW);
+plot([12.5 12.5 17.5 17.5 12.5]+dec,[12 19 19 12 12]+ht,'Color',ColorBar,'linewidth',LW);
 
 % Niveaux des Reservoirs
 h_NIV(1)=fill([2.6 2.6 7.4 7.4]+dec,[12.1 16 16 12.1]+ht,[0 1 0],'linestyle','none');
@@ -188,11 +191,11 @@ ttt=text(15,2,['\pm ' num2str(round(mean(PR(:)),2))],'fontsize',20);
 if mean(PR(:)) >= 500 && mean(PR(:)) < 1000
     set(ttt,'color',[1 0.6 0])
 else if mean(PR(:)) >= 1000
-         set(ttt,'color','r');
+        set(ttt,'color','r');
     else
-       set(ttt,'color','k');
+        set(ttt,'color','k');
     end
-
+    
 end
 
 PerfResTot=min(PerfResTot,1500);
@@ -256,7 +259,7 @@ subplot('Position',Posi(4,:))
 % text(0,0.07,'10/10','fontsize',20)
 % text(3,0.07,'7/10','fontsize',20,'color',[1 0.6 0])
 % text(6,0.07,'4/10','fontsize',20,'color','r')
-% 
+%
 % if PC < 8  && PC > 4
 %       text(3.5,0.3,[ num2str(PC) ' / 10 '],'fontsize',27,'color',[1 0.6 0])
 % else if PC < 6
@@ -265,12 +268,12 @@ subplot('Position',Posi(4,:))
 %         text(3.5,0.3,[ num2str(PC) ' / 10 '],'fontsize',27)
 %     end
 % end
-% 
-% 
+%
+%
 % PC=max(PC,1);
 % plot(10-PC,0,'ok','markersize',10,'linewidth',2)
-% 
-% 
+%
+%
 % xlim([-1 10])
 % ylim([-0.2 0.7])
 
@@ -288,16 +291,16 @@ if MATB_DATA.ScenarioNumber <= 2
     if PC <= 1
         text(0.9,0.3,[ num2str(PC) ' / 2'],'fontsize',27,'color','r')
         plot(2-PC,0,'ok','markersize',10,'linewidth',2)
-    
+        
     else
         text(0.9,0.3,[ num2str(PC) ' / 2 '],'fontsize',27)
         plot(2-PC,0,'ok','markersize',10,'linewidth',2)
-    
+        
     end
     
     xlim([-0.1 2.1])
     ylim([-0.2 0.7])
-  
+    
     
 else
     
@@ -313,43 +316,58 @@ else
         text(3.5,0.3,[ num2str(PC) ' / 5 '],'fontsize',27,'color',[1 0.6 0])
         PC=max(PC,1);
         plot(10-2*PC,0,'ok','markersize',10,'linewidth',2)
-    
+        
     elseif PC <= 2
         text(3.5,0.3,[ num2str(PC) ' / 5 '],'fontsize',27,'color','r')
         PC=max(PC,1);
         plot(10-2*PC,0,'ok','markersize',10,'linewidth',2)
-   
+        
     else
         text(3.5,0.3,[ num2str(PC) ' / 5 '],'fontsize',27)
         PC=max(PC,1);
         plot(10-2*PC,0,'ok','markersize',10,'linewidth',2)
         
     end
-
-xlim([-1 10])
-ylim([-0.2 0.7])  
-
+    
+    xlim([-1 10])
+    ylim([-0.2 0.7])
+    
 end
 
 %------------------------------------------------------------------------
 
-
 axis off
 % grid on
-%% Pour PAUSE CLAVIER
-drawnow
 
-pause(1)
-yesKeys = KbName('Return');
-
+pressed = 0;
 while true
-    [~,~,keyCode] = KbCheck;
-    if any(keyCode(yesKeys))
+    if pressed == 1
         break
     end
+    pause(0.01)
 end
 
-delete(FigPerf)
+    function KeyRecup(~,eventdata)
+        if strcmp(eventdata.Key,'return')
+            pressed = 1;
+            delete(FigPerf)
+        end
+    end
+
+%% Pour PAUSE CLAVIER
+% drawnow
+% 
+% pause(1)
+% yesKeys = KbName('Return');
+% 
+% while true
+%     [~,~,keyCode] = KbCheck;
+%     if any(keyCode(yesKeys))
+%         break
+%     end
+% end
+% 
+% delete(FigPerf)
 
 % close(PRfig)
 % close(PTfig)
@@ -392,8 +410,5 @@ delete(FigPerf)
 %         end
 %     end
 % end
-
-
-
-
+end
 

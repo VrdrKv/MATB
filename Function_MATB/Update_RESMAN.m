@@ -86,4 +86,4 @@ if MATB_DATA.RESMAN.NiveauxPompe(4) == 2000
 end
 
 MATB_DATA.RESMAN.DATA{MATB_DATA.ScenarioNumber}=cat(1,MATB_DATA.RESMAN.DATA{MATB_DATA.ScenarioNumber},MATB_DATA.RESMAN.NiveauxPompe(1:2));
-MATB_DATA.LastUpdate.RESMAN=GetSecs;
+MATB_DATA.LastUpdate.RESMAN=hat;

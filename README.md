@@ -21,7 +21,9 @@ Create CONFIG file with all parameters - Config GUI
 - For random event generator
 - Resolution
 Send real event in LOG not VECTOR  
-Modify Tutorial GLOBAL  
+Modify Tutorial GLOBAL
+Use HAT instead of GetSecs  
+Use figure callback for Keyboard Mouse Press
 
 Config
 Joystick Buttons  
