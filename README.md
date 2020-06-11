@@ -6,6 +6,8 @@ Multi Attribute Task Battery (Replica from the NASA version - https://matb.larc.
 Author: Kevin Verdière, ISAE-SUPAERO, 2018,  
 kevin@verdiere.fr / kevin.verdiere@isae-supaero.fr   
 
+![Illustration](MATB_18.png)
+
 if you are doing research and publishing, pleace cite :  
 "Spectral EEG-based classification for operator dyads’ workload and cooperation level estimation" 
 Kevin J. Verdière, Frédéric Dehais, and Raphaëlle Roy  
