@@ -123,7 +123,7 @@ for N_Scenar=1:size(MATB_DATA.ScenarioType,1)
         N_Panne = Tot_Ev(N_Scenar,4);
         Ev=zeros(N_Panne*2,19);
         
-        t_start=round(linspace(10,280,N_Panne))+randi([-10 10],1,N_Panne); % Depart des pannes
+        t_start=round(linspace(10,(t_Max-(t_Max/5),N_Panne))+randi([-10 10],1,N_Panne); % Depart des pannes
         t_end=t_start+randi([-5 5],1,N_Panne)+20;  % Durée de la panne 20 sec "+ ou - 5"
         Ev(:,1)=[t_start, t_end]';
         
